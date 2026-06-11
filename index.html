@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIFA World Cup 2026™ | Next-Gen Fan Portal & Simulator</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Space Grotesk, Inter & Noto Kufi Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        arabic: ['Noto Kufi Arabic', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            gold: '#F59E0B',
+                            darkGold: '#D97706',
+                            cyberBlue: '#06B6D4',
+                            neonPink: '#EC4899',
+                            darkBg: '#090D1A',
+                            cardBg: '#13192E',
+                            borderGlow: '#1E294B'
+                        }
+                    },
+                    animation: {
+                        'shimmer': 'shimmer 2s infinite linear',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s infinite ease-in-out',
+                        'scan': 'scan 4s linear infinite',
+                    },
+                    keyframes: {
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 0.3 },
+                            '50%': { opacity: 0.8 },
+                        },
+                        scan: {
+                            '0%': { top: '0%' },
+                            '50%': { top: '100%' },
+                            '100%': { top: '0%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* CSS Variables Supporting Fluid Light and Dark Modes to prevent issues shown in image_3b0dbe.jpg */
+        :root {
+            --bg-color: #F8FAFC;
+            --text-color: #0F172A;
+            --text-muted: #475569;
+            --panel-bg: rgba(255, 255, 255, 0.9);
+            --panel-border: rgba(15, 23, 42, 0.12);
+            --card-bg: #FFFFFF;
+            --input-bg: #F1F5F9;
+            --input-border: rgba(15, 23, 42, 0.16);
+            --text-white-or-dark: #0F172A;
+            --border-muted: rgba(15, 23, 42, 0.08);
+            --inner-panel-bg: rgba(0, 0, 0, 0.04);
+            --gradient-start: #F1F5F9;
+            --gradient-end: #E2E8F0;
+        }
+
+        .dark {
+            --bg-color: #090D1A;
+            --text-color: #F1F5F9;
+            --text-muted: #94A3B8;
+            --panel-bg: rgba(19, 25, 46, 0.75);
+            --panel-border: rgba(255, 255, 255, 0.08);
+            --card-bg: #13192E;
+            --input-bg: #0F172A;
+            --input-border: rgba(255, 255, 255, 0.1);
+            --text-white-or-dark: #FFFFFF;
+            --border-muted: rgba(255, 255, 255, 0.05);
+            --inner-panel-bg: rgba(0, 0, 0, 0.4);
+            --gradient-start: #0F172A;
+            --gradient-end: #090D1A;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Custom Premium Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--panel-border);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F59E0B;
+        }
+
+        /* Glassmorphism Classes with Dynamic Theme Fallbacks */
+        .glass-panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--panel-border);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .glow-cyan {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
+        }
+        .glow-pink {
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.15);
+        }
+        .glow-gold {
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+        }
+
+        /* Ambient Glow Blob opacity levels */
+        .glow-blob {
+            transition: opacity 0.5s ease;
+            opacity: 0.09;
+        }
+        .dark .glow-blob {
+            opacity: 0.18;
+        }
+    </style>
+</head>
+<body class="font-sans min-h-screen relative overflow-x-hidden antialiased">
+
+    <!-- Tech Abstract background glowing blobs -->
+    <div class="glow-blob absolute top-0 left-1/4 w-[500px] h-[500px] bg-indigo-500/20 rounded-full filter blur-[120px] pointer-events-none -z-10 animate-pulse-glow"></div>
+    <div class="glow-blob absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-amber-500/10 rounded-full filter blur-[100px] pointer-events-none -z-10"></div>
+    <div class="glow-blob absolute bottom-1/4 left-10 w-[600px] h-[600px] bg-cyan-500/15 rounded-full filter blur-[150px] pointer-events-none -z-10"></div>
+    <div class="glow-blob absolute bottom-10 right-10 w-[500px] h-[500px] bg-rose-500/20 rounded-full filter blur-[120px] pointer-events-none -z-10 animate-pulse-glow"></div>
+
+    <div id="root"></div>
+
+    <!-- React and ReactDOM from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <!-- Babel for inline JSX compilation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.21.4/babel.min.js"></script>
+
+    <script type="text/babel">
+        const { useState, useEffect, useMemo } = React;
+
+        const TEAM_INFO = {
+            "MEX": { name: "Mexico", flag: "🇲🇽", group: "A", colors: "from-emerald-600 to-red-600" },
+            "RSA": { name: "South Africa", flag: "🇿🇦", group: "A", colors: "from-green-600 to-yellow-500" },
+            "KOR": { name: "South Korea", flag: "🇰🇷", group: "A", colors: "from-red-600 to-blue-800" },
+            "CZE": { name: "Czechia", flag: "🇨🇿", group: "A", colors: "from-blue-700 to-red-600" },
+            
+            "CAN": { name: "Canada", flag: "🇨🇦", group: "B", colors: "from-red-600 to-slate-200" },
+            "BIH": { name: "Bosnia & Herz.", flag: "🇧🇦", group: "B", colors: "from-blue-800 to-yellow-400" },
+            "QAT": { name: "Qatar", flag: "🇶🇦", group: "B", colors: "from-purple-900 to-stone-200" },
+            "SUI": { name: "Switzerland", flag: "🇨🇭", group: "B", colors: "from-red-700 to-red-500" },
+
+            "BRA": { name: "Brazil", flag: "🇧🇷", group: "C", colors: "from-yellow-400 to-emerald-600" },
+            "MAR": { name: "Morocco", flag: "🇲🇦", group: "C", colors: "from-red-800 to-emerald-700" },
+            "HAI": { name: "Haiti", flag: "🇭🇹", group: "C", colors: "from-blue-600 to-red-600" },
+            "SCO": { name: "Scotland", flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", group: "C", colors: "from-blue-900 to-slate-100" },
+
+            "USA": { name: "United States", flag: "🇺🇸", group: "D", colors: "from-blue-800 to-red-600" },
+            "PAR": { name: "Paraguay", flag: "🇵🇾", group: "D", colors: "from-red-600 to-blue-700" },
+            "AUS": { name: "Australia", flag: "🇦🇺", group: "D", colors: "from-green-800 to-yellow-500" },
+            "TUR": { name: "Türkiye", flag: "🇹🇷", group: "D", colors: "from-red-700 to-stone-100" },
+
+            "GER": { name: "Germany", flag: "🇩🇪", group: "E", colors: "from-slate-900 via-red-600 to-amber-500" },
+            "CIV": { name: "Côte d'Ivoire", flag: "🇨🇮", group: "E", colors: "from-orange-500 via-white to-emerald-600" },
+            "ECU": { name: "Ecuador", flag: "🇪🇨", group: "E", colors: "from-yellow-500 to-blue-700" },
+            "CUW": { name: "Curaçao", flag: "🇨🇼", group: "E", colors: "from-blue-900 to-yellow-400" },
+
+            "NED": { name: "Netherlands", flag: "🇳🇱", group: "F", colors: "from-orange-500 to-blue-800" },
+            "JPN": { name: "Japan", flag: "🇯🇵", group: "F", colors: "from-blue-900 to-indigo-600" },
+            "SWE": { name: "Sweden", flag: "🇸🇪", group: "F", colors: "from-blue-600 to-yellow-500" },
+            "TUN": { name: "Tunisia", flag: "🇹🇳", group: "F", colors: "from-red-600 to-slate-200" },
+
+            "BEL": { name: "Belgium", flag: "🇧🇪", group: "G", colors: "from-red-700 to-yellow-500" },
+            "EGY": { name: "Egypt", flag: "🇪🇬", group: "G", colors: "from-red-800 to-stone-900" },
+            "IRN": { name: "IR Iran", flag: "🇮🇷", group: "G", colors: "from-emerald-700 to-red-600" },
+            "NZL": { name: "New Zealand", flag: "🇳🇿", group: "G", colors: "from-stone-900 to-slate-100" },
+
+            "ESP": { name: "Spain", flag: "🇪🇸", group: "H", colors: "from-red-600 to-yellow-500" },
+            "URU": { name: "Uruguay", flag: "🇺🇾", group: "H", colors: "from-sky-500 to-slate-200" },
+            "KSA": { name: "Saudi Arabia", flag: "🇸🇦", group: "H", colors: "from-emerald-700 to-green-600" },
+            "CPV": { name: "Cabo Verde", flag: "🇨🇻", group: "H", colors: "from-blue-800 to-yellow-500" },
+
+            "FRA": { name: "France", flag: "🇫🇷", group: "I", colors: "from-blue-800 to-red-600" },
+            "SEN": { name: "Senegal", flag: "🇸🇳", group: "I", colors: "from-emerald-700 to-yellow-500" },
+            "NOR": { name: "Norway", flag: "🇳🇴", group: "I", colors: "from-red-700 to-blue-900" },
+            "IRQ": { name: "Iraq", flag: "🇮🇶", group: "I", colors: "from-emerald-800 to-red-700" },
+
+            "ARG": { name: "Argentina", flag: "🇦🇷", group: "J", colors: "from-sky-400 to-blue-600" },
+            "ALG": { name: "Algeria", flag: "🇩🇿", group: "J", colors: "from-emerald-700 to-stone-100" },
+            "AUT": { name: "Austria", flag: "🇦🇹", group: "J", colors: "from-red-600 to-slate-100" },
+            "JOR": { name: "Jordan", flag: "🇯🇴", group: "J", colors: "from-red-700 to-emerald-700" },
+
+            "POR": { name: "Portugal", flag: "🇵🇹", group: "K", colors: "from-emerald-700 to-red-600" },
+            "COL": { name: "Colombia", flag: "🇨🇴", group: "K", colors: "from-yellow-400 to-blue-800" },
+            "UZB": { name: "Uzbekistan", flag: "🇺🇿", group: "K", colors: "from-blue-500 to-emerald-500" },
+            "COD": { name: "Congo DR", flag: "🇨🇩", group: "K", colors: "from-blue-600 to-yellow-500" },
+
+            "ENG": { name: "England", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", group: "L", colors: "from-slate-100 to-red-600" },
+            "CRO": { name: "Croatia", flag: "🇭🇷", group: "L", colors: "from-red-600 to-blue-800" },
+            "GHA": { name: "Ghana", flag: "🇬🇭", group: "L", colors: "from-yellow-500 to-red-600" },
+            "PAN": { name: "Panama", flag: "🇵🇦", group: "L", colors: "from-blue-700 to-red-600" }
+        };
+
+        const STADIUMS = [
+            { id: "azteca", name: "Mexico City Stadium", city: "Mexico City", country: "MEX", capacity: "87,523", feature: "Estadio Azteca, host of opening match", desc: "The legendary Estadio Azteca is the first stadium to host three opening matches of the FIFA World Cup." },
+            { id: "metlife", name: "New York New Jersey Stadium", city: "East Rutherford", country: "USA", capacity: "82,500", feature: "Host of the Grand Finale", desc: "A world-class multi-purpose architectural marvel set to capture the eyes of billions for the Final." },
+            { id: "sofi", name: "Los Angeles Stadium", city: "Inglewood", country: "USA", capacity: "70,240", feature: "Futuristic dual-sided 4K infinity screen", desc: "Features a futuristic translucent roof and dynamic architectural setups." },
+            { id: "bcplace", name: "BC Place", city: "Vancouver", country: "CAN", capacity: "54,500", feature: "Stunning retractable cable roof", desc: "A jewel of the Pacific Northwest hosting multiple crucial group stage fixtures." },
+            { id: "dallas", name: "Dallas Stadium", city: "Arlington", country: "USA", capacity: "92,967", feature: "Highest seating capacity potential", desc: "Massive retractable dome with giant high-definition suspended video boards." },
+            { id: "toronto", name: "Toronto Stadium", city: "Toronto", country: "CAN", capacity: "45,736", feature: "Intimate and vibrant atmosphere", desc: "BMO Field expanded significantly to capture the ultimate Canadian fan experience." },
+            { id: "guadalajara", name: "Guadalajara Stadium", city: "Zapopan", country: "MEX", capacity: "48,071", feature: "Volcano-inspired architecture", desc: "Estadio Akron, beautifully integrated mimicking a lush grassy volcano slope." },
+            { id: "monterrey", name: "Monterrey Stadium", city: "Guadalupe", country: "MEX", capacity: "53,500", feature: "Steel design overlooking Cerro de la Silla", desc: "Estadio BBVA is one of the most scenic, sustainable venues in North America." }
+        ];
+
+        // 24 Matchday 1 Group Stage Fixtures perfectly aligned with official FIFA Kickoff Times
+        const INITIAL_MATCHES = [
+            { id: 1, group: "A", date: "2026-06-11", localTime: "13:00", offset: "-06:00", team1: "MEX", team2: "RSA", score1: null, score2: null, venue: "Mexico City Stadium" },
+            { id: 2, group: "A", date: "2026-06-11", localTime: "20:00", offset: "-06:00", team1: "KOR", team2: "CZE", score1: null, score2: null, venue: "Guadalajara Stadium" },
+            { id: 3, group: "B", date: "2026-06-12", localTime: "15:00", offset: "-04:00", team1: "CAN", team2: "BIH", score1: null, score2: null, venue: "Toronto Stadium" },
+            { id: 4, group: "D", date: "2026-06-12", localTime: "18:00", offset: "-07:00", team1: "USA", team2: "PAR", score1: null, score2: null, venue: "Los Angeles Stadium" },
+            { id: 5, group: "B", date: "2026-06-13", localTime: "12:00", offset: "-07:00", team1: "QAT", team2: "SUI", score1: null, score2: null, venue: "San Francisco Bay Area Stadium" },
+            { id: 6, group: "C", date: "2026-06-13", localTime: "18:00", offset: "-04:00", team1: "BRA", team2: "MAR", score1: null, score2: null, venue: "New York New Jersey Stadium" },
+            { id: 7, group: "C", date: "2026-06-13", localTime: "21:00", offset: "-04:00", team1: "HAI", team2: "SCO", score1: null, score2: null, venue: "Boston Stadium" },
+            { id: 8, group: "D", date: "2026-06-13", localTime: "21:00", offset: "-07:00", team1: "AUS", team2: "TUR", score1: null, score2: null, venue: "BC Place" },
+            { id: 9, group: "E", date: "2026-06-14", localTime: "12:00", offset: "-05:00", team1: "GER", team2: "CUW", score1: null, score2: null, venue: "Houston Stadium" },
+            { id: 10, group: "F", date: "2026-06-14", localTime: "15:00", offset: "-05:00", team1: "NED", team2: "JPN", score1: null, score2: null, venue: "Dallas Stadium" },
+            { id: 11, group: "E", date: "2026-06-14", localTime: "19:00", offset: "-04:00", team1: "CIV", team2: "ECU", score1: null, score2: null, venue: "Philadelphia Stadium" },
+            { id: 12, group: "F", date: "2026-06-14", localTime: "20:00", offset: "-06:00", team1: "SWE", team2: "TUN", score1: null, score2: null, venue: "Monterrey Stadium" },
+            { id: 13, group: "H", date: "2026-06-15", localTime: "12:00", offset: "-04:00", team1: "ESP", team2: "CPV", score1: null, score2: null, venue: "Atlanta Stadium" },
+            { id: 14, group: "G", date: "2026-06-15", localTime: "12:00", offset: "-07:00", team1: "BEL", team2: "EGY", score1: null, score2: null, venue: "Seattle Stadium" },
+            { id: 15, group: "H", date: "2026-06-15", localTime: "18:00", offset: "-04:00", team1: "KSA", team2: "URU", score1: null, score2: null, venue: "Miami Stadium" },
+            { id: 16, group: "G", date: "2026-06-15", localTime: "18:00", offset: "-07:00", team1: "IRN", team2: "NZL", score1: null, score2: null, venue: "Los Angeles Stadium" },
+            { id: 17, group: "I", date: "2026-06-16", localTime: "15:00", offset: "-04:00", team1: "FRA", team2: "SEN", score1: null, score2: null, venue: "New York New Jersey Stadium" },
+            { id: 18, group: "I", date: "2026-06-16", localTime: "18:00", offset: "-04:00", team1: "IRQ", team2: "NOR", score1: null, score2: null, venue: "Boston Stadium" },
+            { id: 19, group: "J", date: "2026-06-16", localTime: "20:00", offset: "-05:00", team1: "ARG", team2: "ALG", score1: null, score2: null, venue: "Kansas City Stadium" },
+            { id: 20, group: "J", date: "2026-06-16", localTime: "21:00", offset: "-07:00", team1: "AUT", team2: "JOR", score1: null, score2: null, venue: "San Francisco Bay Area Stadium" },
+            { id: 21, group: "L", date: "2026-06-17", localTime: "19:00", offset: "-04:00", team1: "GHA", team2: "PAN", score1: null, score2: null, venue: "Toronto Stadium" },
+            { id: 22, group: "L", date: "2026-06-17", localTime: "15:00", offset: "-05:00", team1: "ENG", team2: "CRO", score1: null, score2: null, venue: "Dallas Stadium" },
+            { id: 23, group: "K", date: "2026-06-17", localTime: "12:00", offset: "-05:00", team1: "POR", team2: "COD", score1: null, score2: null, venue: "Houston Stadium" },
+            { id: 24, group: "K", date: "2026-06-17", localTime: "20:00", offset: "-06:00", team1: "UZB", team2: "COL", score1: null, score2: null, venue: "Mexico City Stadium" }
+        ];
+
+        const TRANSLATIONS = {
+            en: {
+                liveMode: "LIVE TOURNAMENT MODE ACTIVATED • THE OPENING KICKOFF IS TODAY!",
+                nextGenPortal: "Next-Gen Fan Portal",
+                kickoffCenter: "Kickoff Center",
+                matchExplorer: "Match Explorer",
+                standingsSim: "Standings Sim",
+                venues: "Venues",
+                fanBadge: "Fan Badge",
+                searchPlaceholder: "Search 48 countries...",
+                heroTitle1: "WE ARE IN THE",
+                heroTitle2: "NATIONS' ARENA",
+                heroDesc: "Welcome to the smartest, interactive simulator for the 48-team FIFA World Cup 2026™. Track live fixtures, play matching simulator predictions, explore host arenas, and customize your social ticket.",
+                openPredictor: "Open Predictor Schedule",
+                chaosPredict: "Chaos Predict All",
+                todayKickoffs: "Today's Featured Kickoffs",
+                todayKickoffsDesc: "June 11, 2026 matches. Input goals to test live table updates!",
+                autoFill: "Auto-Fill",
+                clearPrediction: "Clear Prediction",
+                groupStandingsImpact: "GROUP {group} Standings Impact",
+                viewTableSim: "View Table Simulator",
+                calcStandings: "Simulate Predictions",
+                calcStandingsDesc: "Predict goals for featured matches to dynamically compute standings across Groups A to L. Watch live sorting happen instantly!",
+                holographicBadge: "Holographic Supporter Badge",
+                holographicBadgeDesc: "Customize your virtual World Cup ticket. Select your supported nation and position to customize premium card graphics.",
+                generateTicket: "Generate Ticket Card",
+                interactiveVenues: "Interactive Venues",
+                interactiveVenuesDesc: "Take a journey to the historic venues. Explore capacities, locations, and matches across Canada, Mexico, and USA.",
+                tourStadiums: "Tour Stadiums",
+                venueLocal: "Venue Local",
+                yourLocal: "Your Local",
+                reset: "Reset",
+                interactiveTip: "Interactive Tip",
+                stadiumTip: "Scores modified here automatically save to your active simulation model.",
+                allCountries: "All Countries",
+                capacity: "Capacity",
+                highlight: "Highlight",
+                socialTicket: "Social Supporter Ticket",
+                socialTicketDesc: "Create a personalized digital ticket celebrating your favored nation, custom title and support tier to showcase on social feeds.",
+                fanName: "Fan Name",
+                supportedTeam: "Supported Team",
+                supporterRole: "Supporter Role",
+                ticketTierSelection: "Ticket Tier Selection",
+                downloadPass: "Generate Holographic Pass",
+                ticketGenerated: "🎫 Supporter Ticket Generated!",
+                shareBracket: "Share Predictions Bracket",
+                allGroups: "All Groups (A-L)",
+                groupStandings: "GROUP {group} STANDINGS",
+                liveSimulated: "Live Simulated",
+                pos: "Pos",
+                team: "Team",
+                mp: "MP",
+                w: "W",
+                d: "D",
+                l: "L",
+                gd: "GD",
+                pts: "Pts",
+                status: "Status",
+                advance: "Advance",
+                thirdSpot: "3rd Spot",
+                eliminated: "Eliminated",
+                simulateDirectly: "Simulate Matches Directly",
+                simulateDirectlyDesc: "Modify goals below to immediately trigger calculations on the Group {group} table.",
+                myPredictions: "🏆 MY WORLD CUP 2026 PREDICTIONS 🏆",
+                predictionsCopied: "📋 Group stage predictions copied to clipboard!",
+                portalTitle: "THE CHAMPIONS PORTAL • FIFA WORLD CUP 2026™",
+                portalDesc: "Crafted for high performance. Deploy instantly to Github Pages. No external database dependencies.",
+                statusOperational: "Fully Operational",
+                kickoffDay: "June 11, 2026 Kickoff Day",
+                systemTime: "System Time",
+                timeZone: "Time Zone",
+                theme: "Theme",
+                roles: {
+                    "Tactical Expert": "Tactical Expert",
+                    "Pitchside Fanatic": "Pitchside Fanatic",
+                    "Local Hero": "Local Hero",
+                    "Superfan Ultra": "Superfan Ultra",
+                    "Goal Tracker": "Goal Tracker"
+                }
+            },
+            ms: {
+                liveMode: "MOD PERLAWANAN AKTIF • SEPAK MULA HARI INI!",
+                nextGenPortal: "Portal Peminat Generasi Baru",
+                kickoffCenter: "Pusat Sepak Mula",
+                matchExplorer: "Peneroka Perlawanan",
+                standingsSim: "Simulasi Kedudukan",
+                venues: "Stadium",
+                fanBadge: "Pas Peminat",
+                searchPlaceholder: "Cari 48 negara...",
+                heroTitle1: "KITA BERADA DI",
+                heroTitle2: "GELANGGANG NEGARA",
+                heroDesc: "Selamat datang ke simulator interaktif paling pintar untuk Piala Dunia FIFA 2026™ yang membabitkan 48 pasukan. Ramal keputusan perlawanan, teroka stadium, dan bina tiket digital premium anda.",
+                openPredictor: "Buka Jadual Ramalan",
+                chaosPredict: "Ramalan Rawak Semua",
+                todayKickoffs: "Sepak Mula Pilihan Hari Ini",
+                todayKickoffsDesc: "Perlawanan 11 Jun 2026. Masukkan gol untuk melihat kemas kini kedudukan langsung!",
+                autoFill: "Isi Automatik",
+                clearPrediction: "Kosongkan Ramalan",
+                groupStandingsImpact: "Kesan Kedudukan KUMPULAN {group}",
+                viewTableSim: "Lihat Simulator Carta",
+                calcStandings: "Simulasi Ramalan",
+                calcStandingsDesc: "Ramal jaringan gol untuk mengira kedudukan Kumpulan A hingga L secara langsung. Lihat perubahan carta serta-merta!",
+                holographicBadge: "Pas Holografik Peminat",
+                holographicBadgeDesc: "Bina tiket Piala Dunia maya tersendiri. Pilih negara kegemaran dan peranan anda untuk menjana grafik premium.",
+                generateTicket: "Bina Kad Tiket",
+                interactiveVenues: "Stadium Interaktif",
+                interactiveVenuesDesc: "Kembara ke stadium bersejarah Piala Dunia. Teroka kapasiti, lokasi dan perlawanan di Kanada, Mexico, dan AS.",
+                tourStadiums: "Teroka Stadium",
+                venueLocal: "Masa Stadium",
+                yourLocal: "Masa Anda",
+                reset: "Set Semula",
+                interactiveTip: "Tip Interaktif",
+                stadiumTip: "Mata yang diubah di sini akan dikira terus ke dalam simulator aktif anda.",
+                allCountries: "Semua Negara",
+                capacity: "Kapasiti",
+                highlight: "Keunikan",
+                socialTicket: "Tiket Sokongan Sosial",
+                socialTicketDesc: "Cipta tiket digital tersendiri untuk meraikan negara pilihan, peranan khas, dan gred tiket premium anda.",
+                fanName: "Nama Peminat",
+                supportedTeam: "Pasukan Pilihan",
+                supporterRole: "Peranan Sokongan",
+                ticketTierSelection: "Pilihan Gred Tiket",
+                downloadPass: "Jana Pas Holografik",
+                ticketGenerated: "🎫 Tiket Sokongan Dijana!",
+                shareBracket: "Kongsi Carta Ramalan",
+                allGroups: "Semua Kumpulan (Kumpulan A-L)",
+                groupStandings: "KEDUDUKAN KUMPULAN {group}",
+                liveSimulated: "Simulasi Langsung",
+                pos: "Ked",
+                team: "Pasukan",
+                mp: "P",
+                w: "M",
+                d: "S",
+                l: "K",
+                gd: "PG",
+                pts: "Mt",
+                status: "Status",
+                advance: "Layak",
+                thirdSpot: "Tempat ke-3",
+                eliminated: "Tersingkir",
+                simulateDirectly: "Simulasi Perlawanan Terus",
+                simulateDirectlyDesc: "Ubah gol di bawah untuk mengira serta-merta kedudukan Kumpulan {group}.",
+                myPredictions: "🏆 RAMALAN PIALA DUNIA 2026 SAYA 🏆",
+                predictionsCopied: "📋 Ringkasan ramalan peringkat kumpulan disalin ke papan klip!",
+                portalTitle: "PORTAL JUARA • PIALA DUNIA FIFA 2026™",
+                portalDesc: "Direka untuk prestasi tinggi. Sedia dihoskan di Github Pages tanpa pangkalan data luaran.",
+                statusOperational: "Beroperasi Sepenuhnya",
+                kickoffDay: "Hari Sepak Mula 11 Jun 2026",
+                systemTime: "Masa Sistem",
+                timeZone: "Zon Masa",
+                theme: "Tema",
+                roles: {
+                    "Tactical Expert": "Pakar Taktikal",
+                    "Pitchside Fanatic": "Peminat Tegar",
+                    "Local Hero": "Wira Tempatan",
+                    "Superfan Ultra": "Penyokong Ultra",
+                    "Goal Tracker": "Penjejak Gol"
+                }
+            },
+            zh: {
+                liveMode: "实时赛事模式已激活 • 揭幕战今日开打！",
+                nextGenPortal: "次世代球迷门户",
+                kickoffCenter: "开球中心",
+                matchExplorer: "赛程探索",
+                standingsSim: "积分榜模拟",
+                venues: "举办场馆",
+                fanBadge: "专属粉丝卡",
+                searchPlaceholder: "搜索48个参赛国...",
+                heroTitle1: "我们正处于",
+                heroTitle2: "国家的荣耀竞技场",
+                heroDesc: "欢迎使用最智能的 48 支球队 2026 年国际足联世界杯™ 互动模拟器。预测比分、探索承办球场并定制您的全息粉丝票卡。",
+                openPredictor: "打开预测赛程表",
+                chaosPredict: "混沌一键预测",
+                todayKickoffs: "今日焦点大战",
+                todayKickoffsDesc: "2026年6月11日赛事。输入预测比分，即刻查看实时积分榜变化！",
+                autoFill: "自动填充",
+                clearPrediction: "重置预测",
+                groupStandingsImpact: "小组 {group} 积分榜影响",
+                viewTableSim: "查看积分榜模拟器",
+                calcStandings: "模拟赛事预测",
+                calcStandingsDesc: "预测各场比赛进球，动态计算A组至L组的实时积分，即时目睹排名更迭！",
+                holographicBadge: "全息专属粉丝卡",
+                holographicBadgeDesc: "定制您的虚拟世界杯门票。选择支持的球队与身份，生成精美的社交票卡。",
+                generateTicket: "生成票卡",
+                interactiveVenues: "互动场馆指南",
+                interactiveVenuesDesc: "一览承办本届世界杯的标志性球场。查看加拿大、墨西哥及美国的场馆容量、城市与特色。",
+                tourStadiums: "探索举办场馆",
+                venueLocal: "球场时间",
+                yourLocal: "您的本地时间",
+                reset: "重置",
+                interactiveTip: "互动小贴士",
+                stadiumTip: "在此修改的比分将直接应用至当前模拟数据中。",
+                allCountries: "所有国家",
+                capacity: "容纳人数",
+                highlight: "亮点特色",
+                socialTicket: "社交媒体支持票卡",
+                socialTicketDesc: "创建个性化的电子票卡，展示您喜爱的球队、身份头衔和全息票种等级。",
+                fanName: "球迷昵称",
+                supportedTeam: "支持的球队",
+                supporterRole: "粉丝角色",
+                ticketTierSelection: "票种等级选择",
+                downloadPass: "生成全息票卡",
+                ticketGenerated: "🎫 专属粉丝票卡已成功生成！",
+                shareBracket: "分享我的出线预测",
+                allGroups: "所有小组 (A-L)",
+                groupStandings: "小组 {group} 积分榜",
+                liveSimulated: "实时模拟中",
+                pos: "排名",
+                team: "球队",
+                mp: "已赛",
+                w: "胜",
+                d: "平",
+                l: "负",
+                gd: "净胜球",
+                pts: "积分",
+                status: "状态",
+                advance: "晋级淘汰赛",
+                thirdSpot: "最佳第三名竞争者",
+                eliminated: "已淘汰",
+                simulateDirectly: "直接模拟比赛",
+                simulateDirectlyDesc: "修改下方进球数，即刻更新小组 {group} 积分榜。",
+                myPredictions: "🏆 我的 2026 年世界杯出线预测 🏆",
+                predictionsCopied: "📋 小组赛出线预测已复制到剪贴板！",
+                portalTitle: "冠军门户 • 2026年国际足联世界杯™",
+                portalDesc: "极速响应架构，无需后端数据库，支持 GitHub Pages 一键部署。",
+                statusOperational: "系统运行正常",
+                kickoffDay: "2026年6月11日 揭幕日",
+                systemTime: "系统时间",
+                timeZone: "时区",
+                theme: "主题风格",
+                roles: {
+                    "Tactical Expert": "战术大师",
+                    "Pitchside Fanatic": "场边狂热拥趸",
+                    "Local Hero": "本土支持者",
+                    "Superfan Ultra": "死忠铁杆球迷",
+                    "Goal Tracker": "数据记录员"
+                }
+            },
+            ja: {
+                liveMode: "ライブトーナメントモード起動中 • 本日開幕！",
+                nextGenPortal: "次世代ファンポータル",
+                kickoffCenter: "キックオフセンター",
+                matchExplorer: "マッチエクスプローラー",
+                standingsSim: "顺位シミュレーター",
+                venues: "开催スタジアム",
+                fanBadge: "ファンバッジ",
+                searchPlaceholder: "48カ国から検索...",
+                heroTitle1: "私たちは今、",
+                heroTitle2: "世界の主戦场にいる",
+                heroDesc: "48チームが激突するFIFAワールドカップ2026™の最もスマートな双方向シミュレーターへようこそ。试合展开を予測し、スタジアムを巡り、全息チケットをカスタマイズしましょう。",
+                openPredictor: "シミュレーターを开く",
+                chaosPredict: "ランダム全予測",
+                todayKickoffs: "本日の注目マッチ",
+                todayKickoffsDesc: "2026年6月11日试合。ゴール数を入力してライブ顺位表を更新しましょう！",
+                autoFill: "自動入力",
+                clearPrediction: "予測をクリア",
+                groupStandingsImpact: "グループ {group} への影響",
+                viewTableSim: "顺位表シミュレーターを見る",
+                calcStandings: "予測シミュレーター",
+                calcStandingsDesc: "全试合のゴールを予測し、グループAからLの顺位表をリアルタイム計算。顺位の変化をその目で確認しましょう！",
+                holographicBadge: "ホログラフィックファンバッジ",
+                holographicBadgeDesc: "あなただけのデジタルチケットを作成。サポートする国と役割を選んで、プレミアムグラフィックを生成しましょう。",
+                generateTicket: "チケットを生成",
+                interactiveVenues: "インタラクティブスタジアム案内",
+                interactiveVenuesDesc: "カナダ、メキシコ、アメリカで开催される記念碑的スタジアムを巡る旅。収容人数や特色を網羅。",
+                tourStadiums: "スタジアムを見る",
+                venueLocal: "現地時間",
+                yourLocal: "あなたの現地時間",
+                reset: "リセット",
+                interactiveTip: "操作のヒント",
+                stadiumTip: "ここでのスコア変更は、現在のシミュレーションに自動で反映されます。",
+                allCountries: "すべての国",
+                capacity: "収容人数",
+                highlight: "主な特徴",
+                socialTicket: "ソーシャル・サポーター・チケット",
+                socialTicketDesc: "お気に入りの国、独自の肩書き、ホログラフィックの階級を選択したファンチケットを作成し共有しましょう。",
+                fanName: "サポーター名",
+                supportedTeam: "応援するチーム",
+                supporterRole: "サポーターの役割",
+                ticketTierSelection: "チケット階級の選択",
+                downloadPass: "バッジを生成する",
+                ticketGenerated: "🎫 サポーターチケットが生成されました！",
+                shareBracket: "予測表を共有",
+                allGroups: "すべてのグループ (A-L)",
+                groupStandings: "グループ {group} 顺位表",
+                liveSimulated: "シミュレーション中",
+                pos: "顺位",
+                team: "チーム",
+                mp: "试合",
+                w: "勝",
+                d: "分",
+                l: "敗",
+                gd: "得失",
+                pts: "勝点",
+                status: "ステータス",
+                advance: "突破",
+                thirdSpot: "3位滑り込み",
+                eliminated: "敗退",
+                simulateDirectly: "直接スコアを入力する",
+                simulateDirectlyDesc: "得点を編集して、グループ {group} の顺位表を即時に再計算します。",
+                myPredictions: "🏆 ワールドカップ2026顺位予測 🏆",
+                predictionsCopied: "📋 グループリーグ突破予測がクリップボードにコピーされました！",
+                portalTitle: "チャンピオンポータル • FIFAワールドカップ2026™",
+                portalDesc: "高性能、データベース不要。GitHub Pagesで即座にホスト可能なアーキテクチャ。",
+                statusOperational: "正常稼働中",
+                kickoffDay: "2026年6月11日 開幕日",
+                systemTime: "システム時間",
+                timeZone: "タイムゾーン",
+                theme: "テーマ",
+                roles: {
+                    "Tactical Expert": "戦術エキスパート",
+                    "Pitchside Fanatic": "熱狂的サポーター",
+                    "Local Hero": "ローカルヒーロー",
+                    "Superfan Ultra": "熱狂的ウルトラス",
+                    "Goal Tracker": "ゴールトラッカー"
+                }
+            },
+            es: {
+                liveMode: "¡MODO TORNEO EN VIVO ACTIVADO • EL PARTIDO INAUGURAL ES HOY!",
+                nextGenPortal: "Portal de Fanáticos de Próxima Generación",
+                kickoffCenter: "Centro de Inicio",
+                matchExplorer: "Explorador de Partidos",
+                standingsSim: "Simulador de Tablas",
+                venues: "Sedes",
+                fanBadge: "Pase de Fanático",
+                searchPlaceholder: "Buscar entre 48 países...",
+                heroTitle1: "ESTAMOS EN EL",
+                heroTitle2: "ESCENARIO DE LAS NACIONES",
+                heroDesc: "Bienvenido al simulador interactivo más inteligente para la Copa Mundial de la FIFA 2026™ de 48 equipos. Predice goles, explora estadios y personaliza tu boleto holográfico.",
+                openPredictor: "Abrir Calendario Predictor",
+                chaosPredict: "Predicción Caótica Total",
+                todayKickoffs: "Partidos Destacados de Hoy",
+                todayKickoffsDesc: "Partidos del 11 de junio de 2026. ¡Ingresa goles para actualizar la tabla en vivo!",
+                autoFill: "Auto-Completar",
+                clearPrediction: "Limpiar Predicción",
+                groupStandingsImpact: "Impacto en el Grupo {group}",
+                viewTableSim: "Ver Tabla Simulada",
+                calcStandings: "Simular Resultados",
+                calcStandingsDesc: "Predice los goles de todos los partidos para calcular dinámicamente las clasificaciones de los Grupos A al L. ¡Mira los cambios al instante!",
+                holographicBadge: "Pase Holográfico de Fanático",
+                holographicBadgeDesc: "Personaliza tu boleto virtual de la Copa del Mundo. Elige tu país, tu rol preferido y tu categoría de acceso.",
+                generateTicket: "Generar Tarjeta de Boleto",
+                interactiveVenues: "Sedes Interactivas",
+                interactiveVenuesDesc: "Un viaje a través de los estadios históricos en Canadá, México y EE. UU. Explora capacidades y detalles únicos.",
+                tourStadiums: "Explorar Estadios",
+                venueLocal: "Hora Sede",
+                yourLocal: "Tu Hora",
+                reset: "Restablecer",
+                interactiveTip: "Consejo Interactivo",
+                stadiumTip: "Los goles editados aquí se guardan de forma automática en tu modelo de simulación activo.",
+                allCountries: "Todos los Países",
+                capacity: "Capacidad",
+                highlight: "Destacado",
+                socialTicket: "Boleto de Apoyo Social",
+                socialTicketDesc: "Crea una credencial digital para presumir en tus redes con tu selección preferida, título personalizado y rango de acceso.",
+                fanName: "Nombre del Fan",
+                supportedTeam: "Equipo Apoyado",
+                supporterRole: "Rol del Fan",
+                ticketTierSelection: "Categoría del Boleto",
+                downloadPass: "Generar Pase Holográfico",
+                ticketGenerated: "🎫 ¡Boleto de Apoyo Generado!",
+                shareBracket: "Compartir Predicciones",
+                allGroups: "Todos los Grupos (A-L)",
+                groupStandings: "CLASIFICACIÓN DEL GRUPO {group}",
+                liveSimulated: "Simulación en Vivo",
+                pos: "Pos",
+                team: "Equipo",
+                mp: "PJ",
+                w: "PG",
+                d: "PE",
+                l: "PP",
+                gd: "DG",
+                pts: "Pts",
+                status: "Estado",
+                advance: "Clasifica",
+                thirdSpot: "Mejor 3°",
+                eliminated: "Eliminado",
+                simulateDirectly: "Simular Partidos Directamente",
+                simulateDirectlyDesc: "Modifica los goles a continuación para actualizar instantáneamente la tabla del Grupo {group}.",
+                myPredictions: "🏆 MIS PREDICCIONES COPA MUNDIAL 2026 🏆",
+                predictionsCopied: "📋 ¡Resumen de predicciones copiado al portapapeles!",
+                portalTitle: "PORTAL DE CAMPEONES • COPA MUNDIAL DE LA FIFA 2026™",
+                portalDesc: "Diseñado para alto rendimiento. Listo para GitHub Pages sin base de datos externa.",
+                statusOperational: "Totalmente Operativo",
+                kickoffDay: "11 de Junio, Día de Apertura",
+                systemTime: "Hora del Sistema",
+                timeZone: "Zona Horaria",
+                theme: "Tema",
+                roles: {
+                    "Tactical Expert": "Experto Táctico",
+                    "Pitchside Fanatic": "Fanático de Cancha",
+                    "Local Hero": "Héroe Local",
+                    "Superfan Ultra": "Superfan Ultra",
+                    "Goal Tracker": "Rastreador de Goles"
+                }
+            },
+            fr: {
+                liveMode: "MODE TOURNOI EN DIRECT ACTIVÉ • LE COUP D'ENVOI EST AUJOURD'HUI!",
+                nextGenPortal: "Portail Supporter Nouvelle Génération",
+                kickoffCenter: "Centre Coup d'Envoi",
+                matchExplorer: "Explorateur de Matchs",
+                standingsSim: "Simulateur de Classement",
+                venues: "Stades",
+                fanBadge: "Badge de Supporter",
+                searchPlaceholder: "Rechercher parmi 48 pays...",
+                heroTitle1: "NOUS SOMMES DANS L'",
+                heroTitle2: "ARÈNE DES NATIONS",
+                heroDesc: "Bienvenue sur le simulateur interactif le plus intelligent pour la Coupe du Monde de la FIFA 2026™ à 48 équipes. Pronostiquez les buts, explorez les stades et personnalisez votre billet virtuel.",
+                openPredictor: "Ouvrir le Pronostiqueur",
+                chaosPredict: "Simulation Aléatoire Totale",
+                todayKickoffs: "Matchs Phares d'Aujourd'hui",
+                todayKickoffsDesc: "Matchs du 11 juin 2026. Entrez vos scores pour recalculer instantanément le classement !",
+                autoFill: "Remplissage Auto",
+                clearPrediction: "Effacer les Pronostics",
+                groupStandingsImpact: "Impact Classement GROUPE {group}",
+                viewTableSim: "Voir le Simulateur de Table",
+                calcStandings: "Simuler les Résultats",
+                calcStandingsDesc: "Prédisez les scores pour calculer les classements des Groupes A à L en temps réel. Suivez l'évolution instantanément !",
+                holographicBadge: "Badge de Supporter Holographique",
+                holographicBadgeDesc: "Créez votre propre billet virtuel de la Coupe du Monde. Sélectionnez votre pays, votre titre personnalisé et votre catégorie d'accès.",
+                generateTicket: "Générer le Billet",
+                interactiveVenues: "Stades Interactifs",
+                interactiveVenuesDesc: "Voyagez à travers les stades de classe mondiale accueillant les matchs au Canada, au Mexique et aux États-Unis.",
+                tourStadiums: "Visiter les Stades",
+                venueLocal: "Heure Stade",
+                yourLocal: "Votre Heure",
+                reset: "Réinitialiser",
+                interactiveTip: "Astuce Interactive",
+                stadiumTip: "Les buts modifiés ici sont automatiquement pris en compte dans vos simulations actives.",
+                allCountries: "Tous les Pays",
+                capacity: "Capacité",
+                highlight: "Atout Majeur",
+                socialTicket: "Billet Supporter Digital",
+                socialTicketDesc: "Créez un badge digital aux couleurs de votre nation préférée pour impressionner vos réseaux.",
+                fanName: "Nom du Supporter",
+                supportedTeam: "Équipe Soutenue",
+                supporterRole: "Rôle du Supporter",
+                ticketTierSelection: "Catégorie de Billet",
+                downloadPass: "Générer le Pass Holographique",
+                ticketGenerated: "🎫 Ticket de Supporteur Généré !",
+                shareBracket: "Partager mes Prédictions",
+                allGroups: "Tous les Groupes (A-L)",
+                groupStandings: "CLASSEMENT GROUPE {group}",
+                liveSimulated: "Simulé en Direct",
+                pos: "Pos",
+                team: "Équipe",
+                mp: "MJ",
+                w: "G",
+                d: "N",
+                l: "P",
+                gd: "DB",
+                pts: "Pts",
+                status: "Statut",
+                advance: "Qualifié",
+                thirdSpot: "Meilleur 3e",
+                eliminated: "Éliminé",
+                simulateDirectly: "Simuler en Direct",
+                simulateDirectlyDesc: "Ajustez les buts ci-dessous pour modifier immédiatement le classement du Groupe {group}.",
+                myPredictions: "🏆 MES PRONOSTICS COUPE DU MONDE 2026 🏆",
+                predictionsCopied: "📋 Résumé des prédictions copié !",
+                portalTitle: "PORTAIL DES CHAMPIONS • COUPE DU MONDE DE LA FIFA 2026™",
+                portalDesc: "Développé pour de hautes performances. Hébergement idéal sur GitHub Pages sans base de données.",
+                statusOperational: "Parfaitement Opérationnel",
+                kickoffDay: "11 Juin 2026, Jour de Lancement",
+                systemTime: "Heure Système",
+                timeZone: "Fuseau Horaire",
+                theme: "Thème",
+                roles: {
+                    "Tactical Expert": "Expert Tactique",
+                    "Pitchside Fanatic": "Fanatique du Stade",
+                    "Local Hero": "Héros Local",
+                    "Superfan Ultra": "Superfan Ultra",
+                    "Goal Tracker": "Suiveur de Buts"
+                }
+            },
+            ar: {
+                liveMode: "تم تفعيل وضع البطولة المباشر • مباراة الافتتاح تنطلق اليوم!",
+                nextGenPortal: "بوابة مشجعي الجيل القادم",
+                kickoffCenter: "مركز ركلة البداية",
+                matchExplorer: "مستكشف المباريات",
+                standingsSim: "محاكي الترتيب",
+                venues: "الملاعب",
+                fanBadge: "بطاقة المشجع",
+                searchPlaceholder: "ابحث في 48 دولة...",
+                heroTitle1: "نحن الآن في",
+                heroTitle2: "ساحة الأمم الكبرى",
+                heroDesc: "مرحبًا بك في المحاكي التفاعلي الأذكى لبطولة كأس العالم 2026™ المكونة من 48 فريقًا. توقع الأهداف واستكشف الملاعب وصمم تذكرتك المجسمة الخاصة.",
+                openPredictor: "افتح جدول التوقعات",
+                chaosPredict: "توقع عشوائي للكل",
+                todayKickoffs: "مباريات اليوم البارزة",
+                todayKickoffsDesc: "مباريات 11 يونيو 2026. أدخل الأهداف لتحديث ترتيب المجموعات فورًا!",
+                autoFill: "ملء تلقائي",
+                clearPrediction: "مسح التوقعات",
+                groupStandingsImpact: "تأثير الترتيب على المجموعة {group}",
+                viewTableSim: "عرض محاكي الجدول",
+                calcStandings: "محاكاة التوقعات",
+                calcStandingsDesc: "توقع أهداف المباريات البارزة لحساب الترتيب مباشرة من المجموعة أ إلى ل. شاهد الفرز الحي يحدث على الفور!",
+                holographicBadge: "بطاقة مشجع هولوغرافية",
+                holographicBadgeDesc: "خصص تذكرتك الافتراضية لكأس العالم. حدد بلدك المفضل ودورك والدرجة المفضلة لإنشاء بطاقة متميزة.",
+                generateTicket: "إنشاء بطاقة التذكرة",
+                interactiveVenues: "الملاعب التفاعلية",
+                interactiveVenuesDesc: "رحلة تفاعلية عبر ملاعب كأس العالم التاريخية في كندا والمكسيك والولايات المتحدة.",
+                tourStadiums: "جولة في الملاعب",
+                venueLocal: "وقت الملعب",
+                yourLocal: "وقتك المحلي",
+                reset: "إعادة تعيين",
+                interactiveTip: "تلميح تفاعلي",
+                stadiumTip: "النقاط المعدلة هنا تُحفظ تلقائيًا في نموذج المحاكاة النشط.",
+                allCountries: "جميع البلدان",
+                capacity: "السعة",
+                highlight: "أهم ميزة",
+                socialTicket: "تذكرة المشجع الرقمية",
+                socialTicketDesc: "صمم تذكرتك الرقمية لمشاركتها على شبكات التواصل للاحتفاء ببلدك المفضل وتحديد درجتك المفضلة.",
+                fanName: "اسم المشجع",
+                supportedTeam: "الفريق المفضل",
+                supporterRole: "دور المشجع",
+                ticketTierSelection: "اختيار درجة التذكرة",
+                downloadPass: "إنشاء البطاقة الهولوغرافية",
+                ticketGenerated: "🎫 تم إنشاء بطاقة المشجع بنجاح!",
+                shareBracket: "مشاركة توقعات البطولة",
+                allGroups: "جميع المجموعات (أ-ل)",
+                groupStandings: "جدول ترتيب المجموعة {group}",
+                liveSimulated: "محاكاة مباشرة",
+                pos: "المركز",
+                team: "الفريق",
+                mp: "لعب",
+                w: "فاز",
+                d: "تعادل",
+                l: "خسر",
+                gd: "الفارق",
+                pts: "النقاط",
+                status: "الحالة",
+                advance: "تأهل",
+                thirdSpot: "المركز الثالث",
+                eliminated: "إقصاء",
+                simulateDirectly: "محاكاة المباريات مباشرة",
+                simulateDirectlyDesc: "عدل الأهداف أدناه لتحديث جدول ترتيب المجموعة {group} فورًا.",
+                myPredictions: "🏆 توقعاتي لبطولة كأس العالم 2026 🏆",
+                predictionsCopied: "📋 تم نسخ ملخص التوقعات لمرحلة المجموعات!",
+                portalTitle: "بوابة الأبطال • كأس العالم 2026™",
+                portalDesc: "مصممة للأداء الفائق ومثالية للاستضافة على GitHub Pages دون الحاجة لقواعد بيانات.",
+                statusOperational: "يعمل بكفاءة كاملة",
+                kickoffDay: "11 يونيو 2026 يوم الافتتاح",
+                systemTime: "توقيت النظام",
+                timeZone: "المنطقة الزمنية",
+                theme: "النمط",
+                roles: {
+                    "Tactical Expert": "خبير تكتيكي",
+                    "Pitchside Fanatic": "مشجع متحمس",
+                    "Local Hero": "بطل محلي",
+                    "Superfan Ultra": "مشجع ألتراس",
+                    "Goal Tracker": "متتبع الأهداف"
+                }
+            }
+        };
+
+        function App() {
+            const [matches, setMatches] = useState(INITIAL_MATCHES);
+            const [selectedGroup, setSelectedGroup] = useState("A");
+            const [stadiumFilter, setStadiumFilter] = useState("ALL");
+            const [searchTeam, setSearchTeam] = useState("");
+            const [favoriteTeam, setFavoriteTeam] = useState("USA");
+            const [fanName, setFanName] = useState("Future Legend");
+            const [fanTitle, setFanTitle] = useState("Tactical Expert");
+            const [ticketTier, setTicketTier] = useState("Holographic");
+            const [currentTab, setCurrentTab] = useState("live");
+            
+            // Dynamic Light/Dark scheme
+            const [theme, setTheme] = useState("dark");
+            // Selected language setting
+            const [language, setLanguage] = useState("en");
+            // Dynamic synchronized Clock
+            const [currentTime, setCurrentTime] = useState(new Date());
+
+            // Custom Notification Toast card instead of alerts
+            const [toast, setToast] = useState({ show: false, title: "", message: "", type: "success" });
+
+            // Ticking Dynamic System Clock
+            useEffect(() => {
+                const interval = setInterval(() => {
+                    setCurrentTime(new Date());
+                }, 1000);
+                return () => clearInterval(interval);
+            }, []);
+
+            // Handle Light / Dark class assignments with fallback selectors for image_3b0dbe.jpg
+            useEffect(() => {
+                const htmlEl = document.documentElement;
+                if (theme === "dark") {
+                    htmlEl.classList.add("dark");
+                    htmlEl.classList.remove("light-theme");
+                } else {
+                    htmlEl.classList.remove("dark");
+                    htmlEl.classList.add("light-theme");
+                }
+            }, [theme]);
+
+            const t = useMemo(() => TRANSLATIONS[language] || TRANSLATIONS.en, [language]);
+
+            const showNotificationToast = (title, message, type = "success") => {
+                setToast({ show: true, title, message, type });
+                setTimeout(() => {
+                    setToast(prev => ({ ...prev, show: false }));
+                }, 5000);
+            };
+
+            const handleBadgeAction = () => {
+                const roleTranslation = t.roles[fanTitle] || fanTitle;
+                const messageText = `${t.fanName}: ${fanName} | ${t.supporterRole}: ${roleTranslation} | ${t.supportedTeam}: ${TEAM_INFO[favoriteTeam].name} ${TEAM_INFO[favoriteTeam].flag} | Tier: ${ticketTier}`;
+                showNotificationToast(t.ticketGenerated, messageText, "success");
+            };
+
+            // Dynamic System timezone match offset calculation
+            const formattedTimezone = useMemo(() => {
+                const offsetMinutes = currentTime.getTimezoneOffset();
+                const sign = offsetMinutes <= 0 ? "+" : "-";
+                const absMinutes = Math.abs(offsetMinutes);
+                const hours = String(Math.floor(absMinutes / 60)).padStart(2, "0");
+                const mins = String(absMinutes % 60).padStart(2, "0");
+                return `UTC ${sign}${hours}:${mins}`;
+            }, [currentTime]);
+
+            // ISO-standard UTC Timezone conversion engine ensuring correct local offsets
+            const getLocalTimeStr = (matchDateStr, matchTimeStr, offsetStr) => {
+                const isoString = `${matchDateStr}T${matchTimeStr}:00${offsetStr}`;
+                try {
+                    const d = new Date(isoString);
+                    if (isNaN(d.getTime())) return matchTimeStr;
+                    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+                } catch (e) {
+                    return matchTimeStr;
+                }
+            };
+
+            const groupStandings = useMemo(() => {
+                const standings = {};
+
+                Object.keys(TEAM_INFO).forEach(code => {
+                    const group = TEAM_INFO[code].group;
+                    if (!standings[group]) standings[group] = {};
+                    standings[group][code] = {
+                        code,
+                        name: TEAM_INFO[code].name,
+                        flag: TEAM_INFO[code].flag,
+                        mp: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0
+                    };
+                });
+
+                matches.forEach(m => {
+                    const g = m.group;
+                    const t1 = m.team1;
+                    const t2 = m.team2;
+                    const s1 = parseInt(m.score1);
+                    const s2 = parseInt(m.score2);
+
+                    if (!isNaN(s1) && !isNaN(s2)) {
+                        const team1Stats = standings[g][t1];
+                        const team2Stats = standings[g][t2];
+
+                        if (team1Stats && team2Stats) {
+                            team1Stats.mp += 1;
+                            team2Stats.mp += 1;
+                            team1Stats.gf += s1;
+                            team1Stats.ga += s2;
+                            team2Stats.gf += s2;
+                            team2Stats.ga += s1;
+                            team1Stats.gd = team1Stats.gf - team1Stats.ga;
+                            team2Stats.gd = team2Stats.gf - team2Stats.ga;
+
+                            if (s1 > s2) {
+                                team1Stats.w += 1;
+                                team1Stats.pts += 3;
+                                team2Stats.l += 1;
+                            } else if (s1 < s2) {
+                                team2Stats.w += 1;
+                                team2Stats.pts += 3;
+                                team1Stats.l += 1;
+                            } else {
+                                team1Stats.d += 1;
+                                team1Stats.pts += 1;
+                                team2Stats.d += 1;
+                                team2Stats.pts += 1;
+                            }
+                        }
+                    }
+                });
+
+                const sortedStandings = {};
+                Object.keys(standings).forEach(g => {
+                    sortedStandings[g] = Object.values(standings[g]).sort((a, b) => {
+                        if (b.pts !== a.pts) return b.pts - a.pts;
+                        if (b.gd !== a.gd) return b.gd - a.gd;
+                        return b.gf - a.gf;
+                    });
+                });
+
+                return sortedStandings;
+            }, [matches]);
+
+            const updateScore = (matchId, isTeam1, value) => {
+                const parsedVal = value === "" ? null : parseInt(value);
+                setMatches(prev => prev.map(m => {
+                    if (m.id === matchId) {
+                        return {
+                            ...m,
+                            score1: isTeam1 ? parsedVal : m.score1,
+                            score2: !isTeam1 ? parsedVal : m.score2
+                        };
+                    }
+                    return m;
+                }));
+            };
+
+            const runChaosSimulator = () => {
+                setMatches(prev => prev.map(m => {
+                    const s1 = Math.floor(Math.random() * 4);
+                    const s2 = Math.floor(Math.random() * 4);
+                    return { ...m, score1: s1, score2: s2 };
+                }));
+                showNotificationToast("🎲 Chaos Simulated!", "Standings across Groups A-L have been fully recalculated random-chaos style.", "success");
+            };
+
+            const resetSimulation = () => {
+                setMatches(INITIAL_MATCHES);
+                showNotificationToast("🔄 Simulation Reset", "All match forecasts cleared. Group standings returned to kick-off state.", "info");
+            };
+
+            const filteredMatches = useMemo(() => {
+                return matches.filter(m => {
+                    const matchesGroupSelect = selectedGroup === "ALL" || m.group === selectedGroup;
+                    const matchesStadium = stadiumFilter === "ALL" || m.venue === stadiumFilter;
+                    
+                    let matchesSearch = true;
+                    if (searchTeam.trim() !== "") {
+                        const term = searchTeam.toLowerCase();
+                        const t1 = TEAM_INFO[m.team1]?.name.toLowerCase() || "";
+                        const t2 = TEAM_INFO[m.team2]?.name.toLowerCase() || "";
+                        matchesSearch = t1.includes(term) || t2.includes(term);
+                    }
+                    
+                    return matchesGroupSelect && matchesStadium && matchesSearch;
+                });
+            }, [matches, selectedGroup, stadiumFilter, searchTeam]);
+
+            return (
+                <div dir={language === 'ar' ? 'rtl' : 'ltr'} class={`relative z-10 transition-all ${language === 'ar' ? 'font-arabic' : 'font-sans'} text-slate-800 dark:text-slate-100`}>
+                    
+                    {/* Live System Toast Notification */}
+                    {toast.show && (
+                        <div class="fixed bottom-6 right-6 z-50 glass-panel p-4 rounded-2xl shadow-2xl glow-gold border border-amber-500/30 max-w-sm animate-bounce">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 rounded-full bg-amber-500 flex items-center justify-center text-slate-900 font-bold shrink-0">
+                                    <i class="fa-solid fa-bell"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h5 class="text-xs font-bold uppercase tracking-wider text-amber-500">{toast.title}</h5>
+                                    <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">{toast.message}</p>
+                                </div>
+                                <button onClick={() => setToast(prev => ({ ...prev, show: false }))} class="text-slate-500 hover:text-slate-800 dark:hover:text-white">
+                                    <i class="fa-solid fa-times text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Premium Header Utility Bar */}
+                    <div class="bg-gradient-to-r from-red-600 via-yellow-500 to-indigo-600 py-1.5 text-center text-[11px] font-semibold tracking-wider text-white flex flex-wrap items-center justify-center gap-x-6 gap-y-1 px-4">
+                        <span>⚡ {t.liveMode}</span>
+                        <div class="flex items-center space-x-1 font-mono font-bold bg-black/20 px-2.5 py-0.5 rounded-full text-[10px]">
+                            <i class="fa-regular fa-clock mr-1"></i>
+                            <span>{t.yourLocal}: {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })} ({formattedTimezone})</span>
+                        </div>
+                    </div>
+
+                    {/* Navigation Header */}
+                    <header class="sticky top-0 z-40 glass-panel border-b border-slate-200/80 dark:border-white/10 shadow-lg transition-all">
+                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col lg:flex-row items-center justify-between gap-4">
+                            
+                            {/* Brand Logo & Meta */}
+                            <div class="flex items-center space-x-3 cursor-pointer" onClick={() => setCurrentTab("live")}>
+                                <div class="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center font-display font-bold text-slate-950 shadow-md">
+                                    '26
+                                </div>
+                                <div class="mx-2">
+                                    <h1 class="text-lg font-bold font-display tracking-tight text-slate-900 dark:text-white">
+                                        FIFA WORLD CUP <span class="bg-gradient-to-r from-amber-500 via-rose-500 to-indigo-500 bg-clip-text text-transparent">2026</span>
+                                    </h1>
+                                    <span class="text-[10px] text-cyan-600 dark:text-cyan-400 font-mono tracking-widest uppercase block">{t.nextGenPortal}</span>
+                                </div>
+                            </div>
+
+                            {/* Main Navigation Menu */}
+                            <nav class="flex flex-wrap items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm">
+                                <button 
+                                    onClick={() => setCurrentTab("live")}
+                                    class={`px-3 py-2 rounded-lg font-semibold transition ${currentTab === 'live' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/5'}`}
+                                >
+                                    <i class="fa-solid fa-bolt mr-1.5 text-xs"></i> {t.kickoffCenter}
+                                </button>
+                                <button 
+                                    onClick={() => setCurrentTab("schedule")}
+                                    class={`px-3 py-2 rounded-lg font-semibold transition ${currentTab === 'schedule' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/5'}`}
+                                >
+                                    <i class="fa-solid fa-calendar mr-1.5 text-xs"></i> {t.matchExplorer}
+                                </button>
+                                <button 
+                                    onClick={() => setCurrentTab("groups")}
+                                    class={`px-3 py-2 rounded-lg font-semibold transition ${currentTab === 'groups' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/5'}`}
+                                >
+                                    <i class="fa-solid fa-table mr-1.5 text-xs"></i> {t.standingsSim}
+                                </button>
+                                <button 
+                                    onClick={() => setCurrentTab("stadiums")}
+                                    class={`px-3 py-2 rounded-lg font-semibold transition ${currentTab === 'stadiums' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/5'}`}
+                                >
+                                    <i class="fa-solid fa-map-pin mr-1.5 text-xs"></i> {t.venues}
+                                </button>
+                                <button 
+                                    onClick={() => setCurrentTab("badgemaker")}
+                                    class={`px-3 py-2 rounded-lg font-semibold transition ${currentTab === 'badgemaker' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/5'}`}
+                                >
+                                    <i class="fa-solid fa-id-card mr-1.5 text-xs"></i> {t.fanBadge}
+                                </button>
+                            </nav>
+
+                            {/* Configuration Selectors */}
+                            <div class="flex items-center flex-wrap gap-2.5">
+                                {/* Theme Switcher with contrast states matching light/dark classes */}
+                                <button 
+                                    onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                                    class="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-white/10 text-slate-800 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition flex items-center justify-center text-sm shadow-sm"
+                                    title={theme === "dark" ? "Light Mode" : "Dark Mode"}
+                                >
+                                    {theme === "dark" ? <i class="fa-solid fa-sun"></i> : <i class="fa-solid fa-moon"></i>}
+                                </button>
+
+                                {/* Language Selector */}
+                                <div class="relative">
+                                    <select 
+                                        value={language}
+                                        onChange={(e) => setLanguage(e.target.value)}
+                                        class="bg-white dark:bg-slate-900 border border-slate-300 dark:border-white/10 rounded-lg py-1.5 px-3 text-xs text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 font-sans cursor-pointer"
+                                    >
+                                        <option value="en">English (EN)</option>
+                                        <option value="ms">Melayu (MS)</option>
+                                        <option value="zh">中文 (ZH)</option>
+                                        <option value="ja">日本語 (JA)</option>
+                                        <option value="es">Español (ES)</option>
+                                        <option value="fr">Français (FR)</option>
+                                        <option value="ar">العربية (AR)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </header>
+
+                    {}
+                    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                        
+                        {/* Tab Content: Live Center */}
+                        {currentTab === "live" && (
+                            <div>
+                                {/* Hero Headline section with high readability on both dark and light backdrops */}
+                                <section class="text-center py-16 px-6 rounded-3xl bg-slate-100/50 dark:bg-slate-900/40 border border-slate-200 dark:border-white/10 shadow-xl relative overflow-hidden mb-12">
+                                    <div class="glow-blob absolute -top-10 -left-10 w-40 h-40 bg-pink-500/10 rounded-full blur-2xl"></div>
+                                    <div class="glow-blob absolute -bottom-10 -right-10 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl"></div>
+                                    
+                                    <div class="inline-flex items-center space-x-2 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-full px-3 py-1.5 mb-6 shadow-sm">
+                                        <span class="flex h-2 w-2 relative">
+                                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                        </span>
+                                        <span class="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold tracking-wider uppercase">{t.kickoffDay}</span>
+                                    </div>
+
+                                    <h2 class="text-4xl sm:text-6xl font-display font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white leading-none">
+                                        {t.heroTitle1} <br class="sm:hidden" />
+                                        <span class="bg-gradient-to-r from-amber-500 via-rose-500 to-indigo-500 bg-clip-text text-transparent block sm:inline">
+                                            {t.heroTitle2}
+                                        </span>
+                                    </h2>
+                                    <p class="text-slate-700 dark:text-slate-300 text-sm sm:text-base max-w-2xl mx-auto font-normal leading-relaxed mb-8">
+                                        {t.heroDesc}
+                                    </p>
+
+                                    {/* Action Buttons with high-contrast text styles for Light Mode */}
+                                    <div class="flex flex-wrap items-center justify-center gap-4">
+                                        <button 
+                                            onClick={() => setCurrentTab("schedule")}
+                                            class="bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 px-6 py-3 rounded-xl font-bold font-display shadow-lg hover:shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center"
+                                        >
+                                            <i class="fa-solid fa-gamepad mr-2 ml-2"></i> {t.openPredictor}
+                                        </button>
+                                        <button 
+                                            onClick={runChaosSimulator}
+                                            class="bg-white hover:bg-slate-200 dark:bg-white/10 dark:hover:bg-white/20 border border-slate-300 dark:border-white/20 px-6 py-3 rounded-xl font-bold text-slate-800 dark:text-white transition-all flex items-center hover:scale-[1.02] active:scale-[0.98] shadow-sm"
+                                        >
+                                            <i class="fa-solid fa-dice mr-2 ml-2 text-amber-500"></i> {t.chaosPredict}
+                                        </button>
+                                    </div>
+                                </section>
+
+                                {/* Today's Live Matches Tracker section */}
+                                <section class="mb-12">
+                                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+                                        <div>
+                                            <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white flex items-center">
+                                                <span class="w-2.5 h-6 bg-amber-500 rounded-full mr-3 ml-3 block"></span>
+                                                {t.todayKickoffs}
+                                            </h3>
+                                            <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-mono font-semibold">{t.todayKickoffsDesc}</p>
+                                        </div>
+                                        <div class="mt-4 sm:mt-0 flex space-x-2">
+                                            <button 
+                                                onClick={runChaosSimulator}
+                                                class="text-xs font-semibold bg-white border border-slate-200 dark:bg-white/5 dark:border-white/10 rounded-lg px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition shadow-sm"
+                                            >
+                                                <i class="fa-solid fa-wand-magic-sparkles mr-1.5 ml-1.5"></i> {t.autoFill}
+                                            </button>
+                                            <button 
+                                                onClick={resetSimulation}
+                                                class="text-xs font-semibold bg-white border border-slate-200 dark:bg-white/5 dark:border-white/10 rounded-lg px-3 py-1.5 text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition shadow-sm"
+                                            >
+                                                <i class="fa-solid fa-rotate-left mr-1.5 ml-1.5"></i> {t.clearPrediction}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        {matches.slice(0, 2).map((match) => {
+                                            const team1 = TEAM_INFO[match.team1];
+                                            const team2 = TEAM_INFO[match.team2];
+                                            return (
+                                                <div key={match.id} class="relative overflow-hidden rounded-2xl glass-panel border border-slate-300 dark:border-white/10 p-6 shadow-md hover:border-amber-500/30 transition-all">
+                                                    <div class="absolute top-0 right-0 bg-amber-500/10 px-3 py-1 rounded-bl-xl text-[10px] font-mono font-bold text-amber-700 dark:text-amber-400 uppercase tracking-widest border-l border-b border-slate-200 dark:border-white/5">
+                                                        Opening Day
+                                                    </div>
+                                                    
+                                                    {/* Arena & Dynamic Offset Conversion */}
+                                                    <div class="text-xs text-slate-700 dark:text-slate-400 mb-4 flex flex-col gap-1">
+                                                        <div class="flex items-center space-x-2">
+                                                            <i class="fa-solid fa-map-location-dot text-amber-500"></i>
+                                                            <span class="truncate font-semibold text-slate-900 dark:text-slate-300">{match.venue}</span>
+                                                        </div>
+                                                        <div class="flex flex-wrap items-center gap-3 font-mono text-[10px] mt-1">
+                                                            <span class="bg-slate-200 dark:bg-white/5 px-2 py-0.5 rounded text-slate-800 dark:text-slate-300 font-bold">{t.venueLocal}: {match.localTime}</span>
+                                                            <span class="bg-amber-500/10 text-amber-800 dark:text-amber-400 px-2 py-0.5 rounded font-extrabold">{t.yourLocal}: {getLocalTimeStr(match.date, match.localTime, match.offset)}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Competitors and predictions inputs */}
+                                                    <div class="flex items-center justify-between gap-4">
+                                                        
+                                                        {/* Team 1 Panel */}
+                                                        <div class="flex-1 text-center">
+                                                            <div class="text-4xl mb-2 filter drop-shadow-md select-none">{team1.flag}</div>
+                                                            <div class="font-display font-bold text-sm tracking-wide text-slate-900 dark:text-white truncate">{team1.name}</div>
+                                                            <div class="text-[10px] text-slate-600 dark:text-slate-400 uppercase font-mono mt-0.5 font-semibold">Code: {match.team1}</div>
+                                                        </div>
+
+                                                        {/* Score Prediction Fields */}
+                                                        <div class="flex items-center space-x-2 bg-slate-200 dark:bg-slate-950/80 px-4 py-3 rounded-2xl border border-slate-300 dark:border-white/5 shadow-inner">
+                                                            <input 
+                                                                type="number" 
+                                                                min="0"
+                                                                placeholder="-" 
+                                                                value={match.score1 === null ? "" : match.score1}
+                                                                onChange={(e) => updateScore(match.id, true, e.target.value)}
+                                                                class="w-12 h-12 text-center text-2xl font-bold font-display bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                                                            />
+                                                            <span class="text-slate-600 dark:text-slate-500 font-bold text-xl">:</span>
+                                                            <input 
+                                                                type="number" 
+                                                                min="0"
+                                                                placeholder="-" 
+                                                                value={match.score2 === null ? "" : match.score2}
+                                                                onChange={(e) => updateScore(match.id, false, e.target.value)}
+                                                                class="w-12 h-12 text-center text-2xl font-bold font-display bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                                                            />
+                                                        </div>
+
+                                                        {/* Team 2 Panel */}
+                                                        <div class="flex-1 text-center">
+                                                            <div class="text-4xl mb-2 filter drop-shadow-md select-none">{team2.flag}</div>
+                                                            <div class="font-display font-bold text-sm tracking-wide text-slate-900 dark:text-white truncate">{team2.name}</div>
+                                                            <div class="text-[10px] text-slate-600 dark:text-slate-400 uppercase font-mono mt-0.5 font-semibold">Code: {match.team2}</div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    {/* Direct Standings Influence indicator */}
+                                                    <div class="mt-5 pt-4 border-t border-slate-200 dark:border-white/5 flex items-center justify-between text-xs text-slate-700 dark:text-slate-400">
+                                                        <span class="font-mono font-bold">{t.groupStandingsImpact.replace('{group}', match.group)}</span>
+                                                        <button 
+                                                            onClick={() => { setSelectedGroup(match.group); setCurrentTab("groups"); }}
+                                                            class="text-amber-700 dark:text-amber-400 font-extrabold hover:underline flex items-center"
+                                                        >
+                                                            {t.viewTableSim} <i class="fa-solid fa-arrow-right-long ml-1.5 mr-1.5 text-[10px]"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </section>
+
+                                {}
+                                {/* Features grid with fully customized light-theme states to fix image_3b0dbe.jpg */}
+                                <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                                    <div class="p-6 rounded-2xl bg-white dark:bg-brand-cardBg border border-slate-200 dark:border-white/5 shadow-md hover:-translate-y-1 transition duration-300">
+                                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-yellow-600 flex items-center justify-center text-slate-950 mb-4 shadow-sm">
+                                            <i class="fa-solid fa-calculator text-lg"></i>
+                                        </div>
+                                        <h4 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-2">{t.calcStandings}</h4>
+                                        <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-4">
+                                            {t.calcStandingsDesc}
+                                        </p>
+                                        <button onClick={() => setCurrentTab("groups")} class="text-amber-700 dark:text-amber-400 text-xs font-bold hover:underline flex items-center">
+                                            {t.viewTableSim} <i class="fa-solid fa-chevron-right ml-1 mr-1 text-[10px]"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="p-6 rounded-2xl bg-white dark:bg-brand-cardBg border border-slate-200 dark:border-white/5 shadow-md hover:-translate-y-1 transition duration-300">
+                                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center text-slate-950 mb-4 shadow-sm">
+                                            <i class="fa-solid fa-ticket text-lg"></i>
+                                        </div>
+                                        <h4 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-2">{t.holographicBadge}</h4>
+                                        <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-4">
+                                            {t.holographicBadgeDesc}
+                                        </p>
+                                        <button onClick={() => setCurrentTab("badgemaker")} class="text-cyan-700 dark:text-cyan-400 text-xs font-bold hover:underline flex items-center">
+                                            {t.generateTicket} <i class="fa-solid fa-chevron-right ml-1 mr-1 text-[10px]"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="p-6 rounded-2xl bg-white dark:bg-brand-cardBg border border-slate-200 dark:border-white/5 shadow-md hover:-translate-y-1 transition duration-300">
+                                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-400 to-rose-600 flex items-center justify-center text-slate-950 mb-4 shadow-sm">
+                                            <i class="fa-solid fa-compass text-lg"></i>
+                                        </div>
+                                        <h4 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-2">{t.interactiveVenues}</h4>
+                                        <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-4">
+                                            {t.interactiveVenuesDesc}
+                                        </p>
+                                        <button onClick={() => setCurrentTab("stadiums")} class="text-rose-700 dark:text-rose-400 text-xs font-bold hover:underline flex items-center">
+                                            {t.tourStadiums} <i class="fa-solid fa-chevron-right ml-1 mr-1 text-[10px]"></i>
+                                        </button>
+                                    </div>
+                                </section>
+                            </div>
+                        )}
+
+                        {/* Tab Content: Match Schedule Explorer */}
+                        {currentTab === "schedule" && (
+                            <div>
+                                <div class="mb-8 bg-slate-100 dark:bg-slate-900/60 p-6 rounded-2xl border border-slate-300 dark:border-white/5 shadow-sm">
+                                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                                        <div>
+                                            <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white">{t.matchExplorer}</h3>
+                                            <p class="text-xs text-slate-700 dark:text-slate-400 mt-1 font-semibold">{t.stadiumTip}</p>
+                                        </div>
+                                        <div class="flex flex-wrap items-center gap-2">
+                                            <button 
+                                                onClick={runChaosSimulator}
+                                                class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition shadow-sm"
+                                            >
+                                                <i class="fa-solid fa-dice mr-1 ml-1"></i> {t.chaosPredict}
+                                            </button>
+                                            <button 
+                                                onClick={resetSimulation}
+                                                class="bg-slate-200 hover:bg-slate-300 dark:bg-white/10 dark:hover:bg-white/20 text-slate-800 dark:text-white font-bold px-4 py-2 rounded-xl text-xs transition border border-slate-300 dark:border-none"
+                                            >
+                                                <i class="fa-solid fa-rotate-left mr-1 ml-1"></i> {t.reset}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Filters Controls with high visual contrast defaults to solve image_3b0dbe.jpg */}
+                                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 pt-6 border-t border-slate-300 dark:border-white/10">
+                                        <div>
+                                            <label class="block text-[10px] font-mono uppercase tracking-wider text-slate-700 dark:text-slate-400 mb-1.5 font-bold">Filter Group</label>
+                                            <select 
+                                                value={selectedGroup} 
+                                                onChange={(e) => setSelectedGroup(e.target.value)}
+                                                class="w-full bg-white dark:bg-slate-950 border border-slate-300 dark:border-white/10 rounded-lg p-2 text-xs text-slate-900 dark:text-slate-300 focus:ring-2 focus:ring-amber-500 font-bold"
+                                            >
+                                                <option value="ALL">{t.allGroups}</option>
+                                                {["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"].map(g => (
+                                                    <option key={g} value={g}>Group {g}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[10px] font-mono uppercase tracking-wider text-slate-700 dark:text-slate-400 mb-1.5 font-bold">Filter Venue</label>
+                                            <select 
+                                                value={stadiumFilter} 
+                                                onChange={(e) => setStadiumFilter(e.target.value)}
+                                                class="w-full bg-white dark:bg-slate-950 border border-slate-300 dark:border-white/10 rounded-lg p-2 text-xs text-slate-900 dark:text-slate-300 focus:ring-2 focus:ring-amber-500 font-bold"
+                                            >
+                                                <option value="ALL">All Venues</option>
+                                                {STADIUMS.map(s => (
+                                                    <option key={s.id} value={s.name}>{s.name} ({s.city})</option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-[10px] font-mono uppercase tracking-wider text-slate-700 dark:text-slate-400 mb-1.5 font-bold">{t.interactiveTip}</label>
+                                            <div class="p-2 bg-slate-200/60 dark:bg-white/5 rounded-lg text-slate-700 dark:text-slate-400 text-[11px] leading-snug flex items-center space-x-2 border border-slate-300 dark:border-none">
+                                                <i class="fa-solid fa-info-circle text-amber-700 dark:text-amber-500"></i>
+                                                <span class="font-semibold">{t.stadiumTip}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {}
+                                {/* Matches List */}
+                                <div class="space-y-4">
+                                    {filteredMatches.length === 0 ? (
+                                        <div class="text-center py-12 bg-slate-100 dark:bg-slate-900/40 rounded-2xl border border-dashed border-slate-300 dark:border-white/10">
+                                            <div class="text-4xl mb-3">⚽</div>
+                                            <h4 class="text-lg font-bold text-slate-800 dark:text-slate-300">No Matches Found</h4>
+                                            <p class="text-slate-600 dark:text-slate-400 text-xs mt-1">Try resetting filters to show matches.</p>
+                                        </div>
+                                    ) : (
+                                        filteredMatches.map(match => {
+                                            const team1 = TEAM_INFO[match.team1];
+                                            const team2 = TEAM_INFO[match.team2];
+                                            return (
+                                                <div 
+                                                    key={match.id} 
+                                                    class="glass-panel border border-slate-300 dark:border-white/10 p-5 rounded-2xl flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 hover:border-amber-500/30 transition-all shadow-sm"
+                                                >
+                                                    {/* Match meta details */}
+                                                    <div class="flex items-center space-x-4 min-w-[200px]">
+                                                        <div class="w-10 h-10 bg-slate-200 dark:bg-slate-950 rounded-lg flex flex-col items-center justify-center font-mono text-[10px] border border-slate-300 dark:border-none">
+                                                            <span class="text-slate-600 dark:text-slate-400 font-bold">JUN</span>
+                                                            <span class="text-amber-700 dark:text-amber-400 text-sm font-bold">{match.date.split('-')[2]}</span>
+                                                        </div>
+                                                        <div>
+                                                            <div class="text-xs font-extrabold text-amber-700 dark:text-amber-500 font-mono tracking-wider">GROUP {match.group}</div>
+                                                            <div class="text-[11px] text-slate-900 dark:text-slate-400 truncate max-w-[250px] font-bold">{match.venue}</div>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Competitors matching scoreboard */}
+                                                    <div class="flex-1 flex items-center justify-between sm:justify-center sm:space-x-8 max-w-xl mx-auto w-full">
+                                                        
+                                                        {/* Team 1 Panel */}
+                                                        <div class="flex items-center space-x-3 w-1/3 justify-end text-right">
+                                                            <span class="font-display font-extrabold text-sm text-slate-900 dark:text-white hidden sm:inline">{team1.name}</span>
+                                                            <span class="font-display font-extrabold text-sm text-slate-900 dark:text-white sm:hidden">{match.team1}</span>
+                                                            <span class="text-2xl select-none">{team1.flag}</span>
+                                                        </div>
+
+                                                        {/* Score Prediction Inputs */}
+                                                        <div class="flex items-center space-x-1.5 px-3 py-1 bg-slate-200 dark:bg-slate-950/80 rounded-xl border border-slate-300 dark:border-white/5">
+                                                            <input 
+                                                                type="number" 
+                                                                min="0"
+                                                                placeholder="-" 
+                                                                value={match.score1 === null ? "" : match.score1}
+                                                                onChange={(e) => updateScore(match.id, true, e.target.value)}
+                                                                class="w-10 h-10 text-center text-lg font-bold font-display bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-md text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-inner"
+                                                            />
+                                                            <span class="text-slate-600 dark:text-slate-500 font-bold">:</span>
+                                                            <input 
+                                                                type="number" 
+                                                                min="0"
+                                                                placeholder="-" 
+                                                                value={match.score2 === null ? "" : match.score2}
+                                                                onChange={(e) => updateScore(match.id, false, e.target.value)}
+                                                                class="w-10 h-10 text-center text-lg font-bold font-display bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-md text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-inner"
+                                                            />
+                                                        </div>
+
+                                                        {/* Team 2 Panel */}
+                                                        <div class="flex items-center space-x-3 w-1/3 justify-start text-left">
+                                                            <span class="text-2xl select-none">{team2.flag}</span>
+                                                            <span class="font-display font-extrabold text-sm text-slate-900 dark:text-white hidden sm:inline">{team2.name}</span>
+                                                            <span class="font-display font-extrabold text-sm text-slate-900 dark:text-white sm:hidden">{match.team2}</span>
+                                                        </div>
+
+                                                    </div>
+
+                                                    {/* Extra detail tag / action */}
+                                                    <div class="text-right flex flex-col sm:flex-row items-end sm:items-center justify-end gap-3">
+                                                        <div class="flex flex-col text-[10px] font-mono text-slate-700 dark:text-slate-400 text-right">
+                                                            <span>{t.venueLocal}: {match.localTime}</span>
+                                                            <span class="text-cyan-700 dark:text-cyan-400 font-extrabold">{t.yourLocal}: {getLocalTimeStr(match.date, match.localTime, match.offset)}</span>
+                                                        </div>
+                                                        <button 
+                                                            onClick={() => { setFavoriteTeam(match.team1); showNotificationToast("Favorite Team Set", `You are now supporting ${TEAM_INFO[match.team1].name}!`, "info"); }}
+                                                            title="Support This Team"
+                                                            class={`w-8 h-8 rounded-full flex items-center justify-center transition border ${favoriteTeam === match.team1 ? 'bg-amber-500 border-amber-500 text-slate-950 shadow-sm' : 'bg-slate-200 dark:bg-slate-900 border-slate-300 dark:border-none text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-300 dark:hover:bg-slate-800'}`}
+                                                        >
+                                                            <i class="fa-solid fa-star text-xs"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {}
+                        {/* Tab Content: Group Standings Simulator */}
+                        {currentTab === "groups" && (
+                            <div>
+                                <div class="bg-slate-100 dark:bg-slate-900/60 p-6 rounded-2xl border border-slate-300 dark:border-white/5 mb-8 shadow-sm">
+                                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                                        <div>
+                                            <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white">{t.standingsSim}</h3>
+                                            <p class="text-xs text-slate-700 dark:text-slate-400 mt-1 font-semibold">{t.simulateDirectlyDesc.replace('{group}', selectedGroup)}</p>
+                                        </div>
+                                        <div class="flex space-x-2">
+                                            <button 
+                                                onClick={runChaosSimulator} 
+                                                class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition shadow-md"
+                                            >
+                                                <i class="fa-solid fa-shuffle mr-1 ml-1"></i> {t.chaosPredict}
+                                            </button>
+                                            <button 
+                                                onClick={resetSimulation} 
+                                                class="bg-slate-200 hover:bg-slate-300 dark:bg-white/10 dark:hover:bg-white/20 text-slate-800 dark:text-white font-bold px-4 py-2 rounded-xl text-xs transition border border-slate-300 dark:border-none"
+                                            >
+                                                <i class="fa-solid fa-rotate-left mr-1 ml-1"></i> {t.clearPrediction}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Group selection tabs */}
+                                    <div class="flex flex-wrap gap-1.5 mt-6">
+                                        {["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"].map(g => (
+                                            <button
+                                                key={g}
+                                                onClick={() => setSelectedGroup(g)}
+                                                class={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${selectedGroup === g ? 'bg-amber-500 text-slate-950 shadow' : 'bg-white dark:bg-slate-950 border border-slate-300 dark:border-none text-slate-700 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-white shadow-sm'}`}
+                                            >
+                                                Group {g}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Active Group Standings View Table */}
+                                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                    {/* Standings table with contrast border grids */}
+                                    <div class="lg:col-span-2 glass-panel p-6 rounded-2xl border border-slate-300 dark:border-white/10 shadow-md relative overflow-hidden">
+                                        <div class="glow-blob absolute -top-10 -left-10 w-32 h-32 bg-amber-500/5 rounded-full blur-xl"></div>
+                                        <h4 class="text-xl font-display font-bold text-slate-900 dark:text-white mb-4 flex items-center justify-between">
+                                            <span>{t.groupStandings.replace('{group}', selectedGroup)}</span>
+                                            <span class="text-[10px] font-mono text-amber-800 dark:text-amber-400 font-bold uppercase tracking-widest bg-amber-500/10 px-2 py-0.5 rounded">{t.liveSimulated}</span>
+                                        </h4>
+                                        
+                                        <div class="overflow-x-auto">
+                                            <table class="w-full text-left text-xs">
+                                                <thead>
+                                                    <tr class="text-slate-700 dark:text-slate-400 uppercase font-mono tracking-wider border-b border-slate-300 dark:border-white/5 pb-2 font-bold">
+                                                        <th class="py-3 px-1 text-center">{t.pos}</th>
+                                                        <th class="py-3 px-2">{t.team}</th>
+                                                        <th class="py-3 px-1 text-center">{t.mp}</th>
+                                                        <th class="py-3 px-1 text-center">{t.w}</th>
+                                                        <th class="py-3 px-1 text-center">{t.d}</th>
+                                                        <th class="py-3 px-1 text-center">{t.l}</th>
+                                                        <th class="py-3 px-1 text-center">{t.gd}</th>
+                                                        <th class="py-3 px-2 text-center text-amber-700 dark:text-amber-400 font-bold">{t.pts}</th>
+                                                        <th class="py-3 px-2 text-center">{t.status}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="divide-y divide-slate-200 dark:divide-white/5">
+                                                    {(groupStandings[selectedGroup] || []).map((team, index) => {
+                                                        const isQualified = index < 2;
+                                                        return (
+                                                            <tr key={team.code} class="hover:bg-slate-100 dark:hover:bg-white/[0.02] transition">
+                                                                <td class="py-3 px-1 text-center font-bold text-slate-900 dark:text-slate-300 font-mono text-sm">
+                                                                    {index + 1}
+                                                                </td>
+                                                                <td class="py-3 px-2 font-extrabold text-slate-900 dark:text-white flex items-center space-x-2">
+                                                                    <span class="text-xl select-none">{team.flag}</span>
+                                                                    <span>{team.name}</span>
+                                                                    <span class="text-[9px] font-mono text-slate-600 dark:text-slate-400 uppercase">({team.code})</span>
+                                                                </td>
+                                                                <td class="py-3 px-1 text-center font-mono text-slate-800 dark:text-slate-300 font-semibold">{team.mp}</td>
+                                                                <td class="py-3 px-1 text-center font-mono text-slate-700 dark:text-slate-400">{team.w}</td>
+                                                                <td class="py-3 px-1 text-center font-mono text-slate-700 dark:text-slate-400">{team.d}</td>
+                                                                <td class="py-3 px-1 text-center font-mono text-slate-700 dark:text-slate-400">{team.l}</td>
+                                                                <td class={`py-3 px-1 text-center font-mono font-bold ${team.gd > 0 ? 'text-emerald-700 dark:text-emerald-400' : team.gd < 0 ? 'text-rose-700 dark:text-rose-400' : 'text-slate-500'}`}>
+                                                                    {team.gd > 0 ? `+${team.gd}` : team.gd}
+                                                                </td>
+                                                                <td class="py-3 px-2 text-center font-mono font-extrabold text-amber-700 dark:text-amber-400 text-sm">
+                                                                    {team.pts}
+                                                                </td>
+                                                                <td class="py-3 px-2 text-center">
+                                                                    {isQualified ? (
+                                                                        <span class="bg-emerald-100 border border-emerald-300 dark:bg-emerald-500/10 dark:border-emerald-500/30 text-emerald-800 dark:text-emerald-400 text-[10px] px-2 py-0.5 rounded-full font-mono uppercase font-bold">
+                                                                            {t.advance}
+                                                                        </span>
+                                                                    ) : index === 2 ? (
+                                                                        <span class="bg-indigo-100 border border-indigo-300 dark:bg-indigo-500/10 dark:border-indigo-500/30 text-indigo-800 dark:text-indigo-400 text-[10px] px-2 py-0.5 rounded-full font-mono uppercase font-bold">
+                                                                            {t.thirdSpot}
+                                                                        </span>
+                                                                    ) : (
+                                                                        <span class="text-slate-600 dark:text-slate-500 text-[10px] font-mono uppercase font-semibold">{t.eliminated}</span>
+                                                                    )}
+                                                                </td>
+                                                            </tr>
+                                                        );
+                                                    })}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    {/* Side panel with active group matches predictor links */}
+                                    <div class="glass-panel p-6 rounded-2xl border border-slate-300 dark:border-white/10 shadow-md flex flex-col justify-between">
+                                        <div>
+                                            <h4 class="text-lg font-display font-bold text-slate-900 dark:text-white mb-2">{t.simulateDirectly}</h4>
+                                            <p class="text-xs text-slate-700 dark:text-slate-400 mb-6 font-semibold">{t.simulateDirectlyDesc.replace('{group}', selectedGroup)}</p>
+                                            
+                                            <div class="space-y-4">
+                                                {matches.filter(m => m.group === selectedGroup).map(m => {
+                                                    const team1 = TEAM_INFO[m.team1];
+                                                    const team2 = TEAM_INFO[m.team2];
+                                                    return (
+                                                        <div key={m.id} class="bg-slate-200 dark:bg-slate-950 p-3 rounded-xl border border-slate-300 dark:border-white/5 shadow-sm">
+                                                            <div class="text-[9px] font-mono text-slate-700 dark:text-slate-400 mb-2 font-bold">{m.venue}</div>
+                                                            <div class="flex items-center justify-between">
+                                                                <div class="flex items-center space-x-1.5 w-1/3">
+                                                                    <span class="text-lg">{team1.flag}</span>
+                                                                    <span class="font-extrabold text-xs text-slate-900 dark:text-slate-300 font-mono">{m.team1}</span>
+                                                                </div>
+
+                                                                <div class="flex items-center space-x-1">
+                                                                    <input 
+                                                                        type="number"
+                                                                        min="0"
+                                                                        placeholder="-"
+                                                                        value={m.score1 === null ? "" : m.score1}
+                                                                        onChange={(e) => updateScore(m.id, true, e.target.value)}
+                                                                        class="w-8 h-8 text-center text-xs font-bold font-display bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded text-slate-900 dark:text-white"
+                                                                    />
+                                                                    <span class="text-slate-500 dark:text-slate-600 text-xs font-bold">:</span>
+                                                                    <input 
+                                                                        type="number"
+                                                                        min="0"
+                                                                        placeholder="-"
+                                                                        value={m.score2 === null ? "" : m.score2}
+                                                                        onChange={(e) => updateScore(m.id, false, e.target.value)}
+                                                                        class="w-8 h-8 text-center text-xs font-bold font-display bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded text-slate-900 dark:text-white"
+                                                                    />
+                                                                </div>
+
+                                                                <div class="flex items-center space-x-1.5 w-1/3 justify-end text-right">
+                                                                    <span class="font-extrabold text-xs text-slate-900 dark:text-slate-300 font-mono">{m.team2}</span>
+                                                                    <span class="text-lg">{team2.flag}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-6 pt-4 border-t border-slate-200 dark:border-white/5">
+                                            <button 
+                                                onClick={() => {
+                                                    const text = `${t.myPredictions}\n\n` + 
+                                                        Object.keys(groupStandings).map(g => {
+                                                            const top = groupStandings[g];
+                                                            if (top && top[0] && top[1]) {
+                                                                return `Group ${g}: 1st ${top[0].flag} ${top[0].code} | 2nd ${top[1].flag} ${top[1].code}`;
+                                                            }
+                                                            return `Group ${g}: Incomplete`;
+                                                        }).slice(0, 4).join("\n") + "\n\nSimulated via FIFA World Cup 2026 Hub ⚽";
+                                                    
+                                                    // Clipboard legacy fallback block
+                                                    const textarea = document.createElement("textarea");
+                                                    textarea.value = text;
+                                                    document.body.appendChild(textarea);
+                                                    textarea.select();
+                                                    document.execCommand("copy");
+                                                    document.body.removeChild(textarea);
+                                                    
+                                                    showNotificationToast("Recap Copied!", t.predictionsCopied, "success");
+                                                }}
+                                                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl text-xs transition flex items-center justify-center space-x-2 shadow-md"
+                                            >
+                                                <i class="fa-solid fa-share-nodes"></i>
+                                                <span>{t.shareBracket}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {}
+                        {/* Tab Content: Venues Guide */}
+                        {currentTab === "stadiums" && (
+                            <div>
+                                <div class="bg-slate-100 dark:bg-slate-900/60 p-6 rounded-2xl border border-slate-300 dark:border-white/5 mb-8 shadow-sm">
+                                    <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white">{t.venues}</h3>
+                                    <p class="text-xs text-slate-700 dark:text-slate-400 mt-1 font-semibold">{t.interactiveVenuesDesc}</p>
+                                    
+                                    <div class="flex flex-wrap gap-2 mt-4">
+                                        <button 
+                                            onClick={() => setStadiumFilter("ALL")} 
+                                            class={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${stadiumFilter === 'ALL' ? 'bg-amber-500 text-slate-950 shadow' : 'bg-white dark:bg-slate-950 border border-slate-300 dark:border-none text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200'}`}
+                                        >
+                                            {t.allCountries}
+                                        </button>
+                                        <button 
+                                            onClick={() => setStadiumFilter("USA")} 
+                                            class={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${stadiumFilter === 'USA' ? 'bg-amber-500 text-slate-950 shadow' : 'bg-white dark:bg-slate-950 border border-slate-300 dark:border-none text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200'}`}
+                                        >
+                                            🇺🇸 United States
+                                        </button>
+                                        <button 
+                                            onClick={() => setStadiumFilter("MEX")} 
+                                            class={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${stadiumFilter === 'MEX' ? 'bg-amber-500 text-slate-950 shadow' : 'bg-white dark:bg-slate-950 border border-slate-300 dark:border-none text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200'}`}
+                                        >
+                                            🇲🇽 Mexico
+                                        </button>
+                                        <button 
+                                            onClick={() => setStadiumFilter("CAN")} 
+                                            class={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${stadiumFilter === 'CAN' ? 'bg-amber-500 text-slate-950 shadow' : 'bg-white dark:bg-slate-950 border border-slate-300 dark:border-none text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200'}`}
+                                        >
+                                            🇨🇦 Canada
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                    {STADIUMS
+                                        .filter(s => stadiumFilter === "ALL" || s.country === stadiumFilter)
+                                        .map(s => (
+                                            <div key={s.id} class="glass-panel rounded-2xl border border-slate-300 dark:border-white/10 overflow-hidden shadow-md hover:-translate-y-1 transition duration-300 flex flex-col justify-between bg-white dark:bg-brand-cardBg">
+                                                <div>
+                                                    <div class="h-32 bg-slate-200 dark:bg-slate-950 relative flex items-center justify-center p-4">
+                                                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/40 to-slate-200/50 dark:to-brand-darkBg opacity-80"></div>
+                                                        
+                                                        <svg class="absolute bottom-0 left-0 right-0 h-16 text-slate-100 dark:text-slate-900/40 w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                                                            <path d="M0,100 C30,40 70,40 100,100 Z" fill="currentColor"></path>
+                                                        </svg>
+
+                                                        <div class="relative z-10 text-center">
+                                                            <div class="text-3xl mb-1">🏟️</div>
+                                                            <span class="text-[9px] font-mono tracking-widest bg-amber-500/20 text-amber-800 dark:text-amber-400 px-2 py-0.5 rounded uppercase font-bold">
+                                                                {s.country === 'USA' ? '🇺🇸 USA' : s.country === 'MEX' ? '🇲🇽 MEX' : '🇨🇦 CAN'}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="p-5">
+                                                        <h4 class="font-display font-bold text-slate-900 dark:text-white text-base leading-tight mb-1">{s.name}</h4>
+                                                        <span class="text-xs text-slate-600 dark:text-slate-400 block mb-3 font-mono font-bold">{s.city}</span>
+                                                        <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed mb-4">{s.desc}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="p-5 pt-0 border-t border-slate-100 dark:border-white/5 mt-auto">
+                                                    <div class="grid grid-cols-2 gap-2 text-center text-[10px] font-mono py-2 bg-slate-100 dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-none">
+                                                        <div>
+                                                            <span class="text-slate-600 dark:text-slate-400 block uppercase font-bold">{t.capacity}</span>
+                                                            <span class="text-slate-900 dark:text-white font-extrabold">{s.capacity}</span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="text-slate-600 dark:text-slate-400 block uppercase font-bold">{t.highlight}</span>
+                                                            <span class="text-amber-800 dark:text-amber-400 font-extrabold truncate max-w-[100px] block mx-auto font-sans" title={s.feature}>{s.feature}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                        )}
+
+                        {}
+                        {/* Tab Content: Social Ticket Card Badge Maker */}
+                        {currentTab === "badgemaker" && (
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                                {/* Left Side: customization controls */}
+                                <div class="glass-panel p-8 rounded-3xl border border-slate-300 dark:border-white/10 shadow-md bg-white dark:bg-brand-cardBg">
+                                    <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-2">{t.socialTicket}</h3>
+                                    <p class="text-xs text-slate-700 dark:text-slate-400 mb-6 font-semibold">{t.socialTicketDesc}</p>
+                                    
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label class="block text-xs font-mono text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-2 font-bold">{t.fanName}</label>
+                                            <input 
+                                                type="text" 
+                                                value={fanName}
+                                                maxLength="25"
+                                                onChange={(e) => setFanName(e.target.value)}
+                                                class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-white/10 rounded-xl p-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 font-bold"
+                                                placeholder="Enter Supporter Name..."
+                                            />
+                                        </div>
+
+                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <div>
+                                                <label class="block text-xs font-mono text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-2 font-bold">{t.supportedTeam}</label>
+                                                <select 
+                                                    value={favoriteTeam} 
+                                                    onChange={(e) => setFavoriteTeam(e.target.value)}
+                                                    class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-white/10 rounded-xl p-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer font-bold"
+                                                >
+                                                    {Object.keys(TEAM_INFO).map(code => (
+                                                        <option key={code} value={code}>
+                                                            {TEAM_INFO[code].flag} {TEAM_INFO[code].name}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label class="block text-xs font-mono text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-2 font-bold">{t.supporterRole}</label>
+                                                <select 
+                                                    value={fanTitle} 
+                                                    onChange={(e) => setFanTitle(e.target.value)}
+                                                    class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-white/10 rounded-xl p-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer font-bold"
+                                                >
+                                                    <option value="Tactical Expert">{t.roles["Tactical Expert"]}</option>
+                                                    <option value="Pitchside Fanatic">{t.roles["Pitchside Fanatic"]}</option>
+                                                    <option value="Local Hero">{t.roles["Local Hero"]}</option>
+                                                    <option value="Superfan Ultra">{t.roles["Superfan Ultra"]}</option>
+                                                    <option value="Goal Tracker">{t.roles["Goal Tracker"]}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label class="block text-xs font-mono text-slate-700 dark:text-slate-400 uppercase tracking-wider mb-2 font-bold">{t.ticketTierSelection}</label>
+                                            <div class="grid grid-cols-3 gap-2">
+                                                {["Holographic", "VIP Elite", "Press Box"].map(tier => (
+                                                    <button
+                                                        key={tier}
+                                                        type="button"
+                                                        onClick={() => setTicketTier(tier)}
+                                                        class={`py-2 px-1 rounded-xl text-xs font-extrabold border transition ${ticketTier === tier ? 'bg-amber-500 border-amber-500 text-slate-950 shadow' : 'bg-white dark:bg-slate-950 border-slate-300 dark:border-white/5 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 shadow-sm'}`}
+                                                    >
+                                                        {tier}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div class="pt-6 border-t border-slate-300 dark:border-white/5">
+                                            <button 
+                                                onClick={handleBadgeAction}
+                                                class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold py-3 rounded-xl text-sm transition shadow-lg flex items-center justify-center space-x-2"
+                                            >
+                                                <i class="fa-solid fa-qrcode"></i>
+                                                <span>{t.downloadPass}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Right Side: Visualizing holographic card structure */}
+                                <div class="flex items-center justify-center">
+                                    <div class={`relative w-full max-w-md rounded-3xl bg-gradient-to-br ${TEAM_INFO[favoriteTeam].colors} p-1 shadow-2xl overflow-hidden group select-none`}>
+                                        
+                                        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-white/20 to-transparent w-full h-1/4 -skew-y-12 animate-scan pointer-events-none z-20"></div>
+
+                                        <div class="bg-brand-darkBg rounded-[22px] p-6 relative overflow-hidden z-10 flex flex-col justify-between min-h-[380px]">
+                                            <div class="glow-blob absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl pointer-events-none"></div>
+                                            
+                                            {/* Ticket Header */}
+                                            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                                                <div>
+                                                    <span class="text-[9px] font-mono tracking-widest text-amber-500 uppercase font-bold">FIFA World Cup 2026™</span>
+                                                    <h4 class="text-sm font-display font-bold text-white uppercase">Official Supporter Pass</h4>
+                                                </div>
+                                                <div class="text-2xl">{TEAM_INFO[favoriteTeam].flag}</div>
+                                            </div>
+
+                                            {/* Main Graphic Section */}
+                                            <div class="my-6 space-y-4 text-left">
+                                                <div>
+                                                    <span class="text-[9px] font-mono uppercase tracking-wider text-slate-400 block">Fan Name</span>
+                                                    <span class="text-xl font-display font-extrabold text-white tracking-wide block">{fanName || "Future Legend"}</span>
+                                                </div>
+
+                                                <div class="grid grid-cols-2 gap-4">
+                                                    <div>
+                                                        <span class="text-[9px] font-mono uppercase tracking-wider text-slate-400 block">Supported Team</span>
+                                                        <span class="text-sm font-bold text-white block">
+                                                            {TEAM_INFO[favoriteTeam].flag} {TEAM_INFO[favoriteTeam].name}
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="text-[9px] font-mono uppercase tracking-wider text-slate-400 block">Supporter Role</span>
+                                                        <span class="text-sm font-bold text-amber-400 block">{t.roles[fanTitle] || fanTitle}</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="grid grid-cols-2 gap-4">
+                                                    <div>
+                                                        <span class="text-[9px] font-mono uppercase tracking-wider text-slate-400 block">Ticket Tier</span>
+                                                        <span class="text-xs font-semibold bg-white/5 border border-white/10 px-2 py-0.5 rounded text-cyan-400 inline-block font-mono mt-0.5">
+                                                            {ticketTier} ACCESS
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="text-[9px] font-mono uppercase tracking-wider text-slate-400 block">Verification ID</span>
+                                                        <span class="text-xs text-slate-300 font-mono">#FWC26-{favoriteTeam}-2026</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Barcode Stub Footer */}
+                                            <div class="border-t border-dashed border-white/20 pt-4 flex items-center justify-between gap-4">
+                                                <div class="flex-1">
+                                                    <div class="text-[8px] font-mono text-slate-400 uppercase">Interactive Barcode</div>
+                                                    <div class="flex items-stretch space-x-0.5 h-6 mt-1 overflow-hidden opacity-60">
+                                                        <div class="w-1 bg-white"></div>
+                                                        <div class="w-2 bg-white"></div>
+                                                        <div class="w-0.5 bg-white"></div>
+                                                        <div class="w-1.5 bg-white"></div>
+                                                        <div class="w-1 bg-white"></div>
+                                                        <div class="w-2.5 bg-white"></div>
+                                                        <div class="w-0.5 bg-white"></div>
+                                                        <div class="w-1 bg-white"></div>
+                                                        <div class="w-1.5 bg-white"></div>
+                                                        <div class="w-2 bg-white"></div>
+                                                        <div class="w-0.5 bg-white"></div>
+                                                        <div class="w-1 bg-white"></div>
+                                                        <div class="w-1.5 bg-white"></div>
+                                                        <div class="w-2 bg-white"></div>
+                                                        <div class="w-0.5 bg-white"></div>
+                                                        <div class="w-1 bg-white"></div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="w-12 h-12 bg-white p-1 rounded-lg shadow flex items-center justify-center">
+                                                    <svg class="w-full h-full text-slate-900" viewBox="0 0 24 24" fill="currentColor">
+                                                        <path d="M2,2 H8 V8 H2 Z M4,4 V6 H6 V4 Z M16,2 H22 V8 H16 Z M18,4 V6 H20 V4 Z M2,16 H8 V22 H2 Z M4,18 V20 H6 V18 Z M11,11 H13 V13 H11 Z M11,16 H13 V18 H11 Z M16,11 H18 V13 H16 Z M13,20 H15 V22 H13 Z M18,18 H20 V20 H18 Z M20,20 H22 V22 H20 Z M20,16 H22 V18 H20 Z" />
+                                                    </svg>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                    </main>
+
+                    {}
+                    {/* Footer */}
+                    <footer class="glass-panel border-t border-slate-300 dark:border-white/10 mt-16 py-12 relative overflow-hidden bg-slate-100 dark:bg-brand-cardBg">
+                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+                            
+                            <div class="text-center md:text-left">
+                                <h4 class="text-sm font-display font-bold text-slate-950 dark:text-white tracking-wide">
+                                    {t.portalTitle}
+                                </h4>
+                                <p class="text-xs text-slate-700 dark:text-slate-400 mt-1">
+                                    {t.portalDesc}
+                                </p>
+                            </div>
+
+                            <div class="flex items-center space-x-4 text-xs font-mono">
+                                <span class="text-slate-600 dark:text-slate-400 font-bold">Status:</span>
+                                <span class="bg-emerald-100 dark:bg-emerald-500/10 text-emerald-800 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-500/30 px-2 py-1 rounded font-bold">{t.statusOperational}</span>
+                                <span class="text-slate-400 dark:text-slate-600">•</span>
+                                <span class="text-slate-800 dark:text-slate-400 font-bold">{t.kickoffDay}</span>
+                            </div>
+
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>
