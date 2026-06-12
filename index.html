@@ -64,7 +64,6 @@
         }
     </script>
     <style>
-        /* CSS Variables Supporting Fluid Light and Dark Modes */
         :root {
             --bg-color: #F8FAFC;
             --text-color: #0F172A;
@@ -103,7 +102,7 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Custom Premium Scrollbar */
+        /* Premium Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -148,7 +147,6 @@
 </head>
 <body class="font-sans min-h-screen relative overflow-x-hidden antialiased">
 
-    <!-- Tech Abstract background glowing blobs -->
     <div class="glow-blob absolute top-0 left-1/4 w-[500px] h-[500px] bg-indigo-500/20 rounded-full filter blur-[120px] pointer-events-none -z-10 animate-pulse-glow"></div>
     <div class="glow-blob absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-amber-500/10 rounded-full filter blur-[100px] pointer-events-none -z-10"></div>
     <div class="glow-blob absolute bottom-1/4 left-10 w-[600px] h-[600px] bg-cyan-500/15 rounded-full filter blur-[150px] pointer-events-none -z-10"></div>
@@ -228,18 +226,16 @@
         };
 
         const STADIUMS = [
-            { id: "azteca", name: "Mexico City Stadium", city: "Mexico City", country: "MEX", capacity: "87,523", feature: "Estadio Azteca, host of opening match", desc: "The legendary Estadio Azteca is the first stadium to host three opening matches of the FIFA World Cup." },
+            { id: "azteca", name: "Mexico City Stadium", city: "Mexico City", country: "MEX", capacity: "87,523", feature: "Host of historic opening match", desc: "The legendary Estadio Azteca is the first stadium to host three opening matches of the FIFA World Cup." },
             { id: "metlife", name: "New York New Jersey Stadium", city: "East Rutherford", country: "USA", capacity: "82,500", feature: "Host of the Grand Finale", desc: "A world-class multi-purpose architectural marvel set to capture the eyes of billions for the Final." },
-            { id: "sofi", name: "Los Angeles Stadium", city: "Inglewood", country: "USA", capacity: "70,240", feature: "Futuristic dual-sided 4K infinity screen", desc: "Features a futuristic translucent roof and dynamic architectural setups." },
-            { id: "bcplace", name: "BC Place", city: "Vancouver", country: "CAN", capacity: "54,500", feature: "Stunning retractable cable roof", desc: "A jewel of the Pacific Northwest hosting multiple crucial group stage fixtures." },
-            { id: "dallas", name: "Dallas Stadium", city: "Arlington", country: "USA", capacity: "92,967", feature: "Highest seating capacity potential", desc: "Massive retractable dome with giant high-definition suspended video boards." },
+            { id: "sofi", name: "Los Angeles Stadium", city: "Inglewood", country: "USA", capacity: "70,240", feature: "Translucent roof & dual-sided screen", desc: "Features a futuristic translucent roof and dynamic architectural setups." },
+            { id: "bcplace", name: "BC Place", city: "Vancouver", country: "CAN", capacity: "54,500", feature: "Retractable cable roof", desc: "A jewel of the Pacific Northwest hosting multiple crucial group stage fixtures." },
+            { id: "dallas", name: "Dallas Stadium", city: "Arlington", country: "USA", capacity: "92,967", feature: "Highest seating capacity dome", desc: "Massive retractable dome with giant high-definition suspended video boards." },
             { id: "toronto", name: "Toronto Stadium", city: "Toronto", country: "CAN", capacity: "45,736", feature: "Intimate and vibrant atmosphere", desc: "BMO Field expanded significantly to capture the ultimate Canadian fan experience." },
             { id: "guadalajara", name: "Guadalajara Stadium", city: "Zapopan", country: "MEX", capacity: "48,071", feature: "Volcano-inspired architecture", desc: "Estadio Akron, beautifully integrated mimicking a lush grassy volcano slope." },
-            { id: "monterrey", name: "Monterrey Stadium", city: "Guadalupe", country: "MEX", capacity: "53,500", feature: "Steel design overlooking Cerro de la Silla", desc: "Estadio BBVA is one of the most scenic, sustainable venues in North America." }
+            { id: "monterrey", name: "Monterrey Stadium", city: "Guadalupe", country: "MEX", capacity: "53,500", feature: "Steel design overlooking mountains", desc: "Estadio BBVA is one of the most scenic, sustainable venues in North America." }
         ];
 
-        // 24 Matchday 1 Group Stage Fixtures perfectly aligned with official FIFA Kickoff Times
-        // Match 1 completed: MEX 2 - 0 RSA (Quiñones 9', Jimenez 67')
         const INITIAL_MATCHES = [
             { 
                 id: 1, 
@@ -249,15 +245,30 @@
                 offset: "-06:00", 
                 team1: "MEX", 
                 team2: "RSA", 
-                score1: null, // User Prediction score 1
-                score2: null, // User Prediction score 2
-                actualScore1: 2, // Official actual score
-                actualScore2: 0, // Official actual score
-                status: "FT", // Full Time / Completed Match Status
-                scorers: "Quiñones 9', Jimenez 67'", 
+                score1: null, 
+                score2: null, 
+                actualScore1: 2, 
+                actualScore2: 0, 
+                status: "FT", 
+                scorers: "Julián Quiñones 9', Raúl Jiménez 67'", 
                 venue: "Mexico City Stadium" 
             },
-            { id: 2, group: "A", date: "2026-06-11", localTime: "20:00", offset: "-06:00", team1: "KOR", team2: "CZE", score1: null, score2: null, venue: "Guadalajara Stadium" },
+            { 
+                id: 2, 
+                group: "A", 
+                date: "2026-06-11", 
+                localTime: "20:00", 
+                offset: "-06:00", 
+                team1: "KOR", 
+                team2: "CZE", 
+                score1: null, 
+                score2: null, 
+                actualScore1: 2,
+                actualScore2: 1,
+                status: "FT",
+                scorers: "Hwang In-beom 67', Oh Hyeon-gyu 80' (KOR) | Ladislav Krejci 59' (CZE)",
+                venue: "Guadalajara Stadium" 
+            },
             { id: 3, group: "B", date: "2026-06-12", localTime: "15:00", offset: "-04:00", team1: "CAN", team2: "BIH", score1: null, score2: null, venue: "Toronto Stadium" },
             { id: 4, group: "D", date: "2026-06-12", localTime: "18:00", offset: "-07:00", team1: "USA", team2: "PAR", score1: null, score2: null, venue: "Los Angeles Stadium" },
             { id: 5, group: "B", date: "2026-06-13", localTime: "12:00", offset: "-07:00", team1: "QAT", team2: "SUI", score1: null, score2: null, venue: "San Francisco Bay Area Stadium" },
@@ -284,7 +295,7 @@
 
         const TRANSLATIONS = {
             en: {
-                liveMode: "LIVE TOURNAMENT MODE ACTIVATED • FIRST MATCH OFFICIAL COMPLETED!",
+                liveMode: "LIVE TOURNAMENT MODE ACTIVATED • COMPLETED MATCHES AUTOMATICALLY CALCULATE",
                 nextGenPortal: "Next-Gen Fan Portal",
                 kickoffCenter: "Kickoff Center",
                 matchExplorer: "Match Explorer",
@@ -297,8 +308,10 @@
                 heroDesc: "Welcome to the smartest, interactive simulator for the 48-team FIFA World Cup 2026™. Track live fixtures, play matching simulator predictions, explore host arenas, and customize your social ticket.",
                 openPredictor: "Open Predictor Schedule",
                 chaosPredict: "Chaos Predict All",
-                todayKickoffs: "Today's Featured Kickoffs",
-                todayKickoffsDesc: "June 11, 2026 matches. Completed games display official final scores, while upcoming games allow prediction entries!",
+                todayKickoffs: "Active & Upcoming Kickoffs",
+                todayKickoffsDesc: "Select fixtures scheduled for today. Lock predictions below to instantly calculate your live standings!",
+                yesterdayRecap: "Yesterday's Official Results",
+                yesterdayRecapDesc: "Verified outcomes from the opening day matches. Predictions are now closed for these fixtures.",
                 autoFill: "Auto-Fill",
                 clearPrediction: "Clear Prediction",
                 groupStandingsImpact: "GROUP {group} Standings Impact",
@@ -350,7 +363,7 @@
                 portalTitle: "THE CHAMPIONS PORTAL • FIFA WORLD CUP 2026™",
                 portalDesc: "Crafted for high performance. Deploy instantly to Github Pages. No external database dependencies.",
                 statusOperational: "Fully Operational",
-                kickoffDay: "June 11, 2026 Kickoff Day",
+                kickoffDay: "Tournament Matchday Portal",
                 systemTime: "System Time",
                 timeZone: "Time Zone",
                 theme: "Theme",
@@ -367,7 +380,7 @@
                 }
             },
             ms: {
-                liveMode: "MOD PERLAWANAN AKTIF • KEPUTUSAN RASMI PERLAWANAN PERTAMA TAMAT!",
+                liveMode: "MOD PERLAWANAN AKTIF • KEPUTUSAN RASMI KINI DIKIRA SECARA AUTOMATIK",
                 nextGenPortal: "Portal Peminat Generasi Baru",
                 kickoffCenter: "Pusat Sepak Mula",
                 matchExplorer: "Peneroka Perlawanan",
@@ -380,8 +393,10 @@
                 heroDesc: "Selamat datang ke simulator interaktif paling pintar untuk Piala Dunia FIFA 2026™ yang membabitkan 48 pasukan. Ramal keputusan perlawanan, teroka stadium, dan bina tiket digital premium anda.",
                 openPredictor: "Buka Jadual Ramalan",
                 chaosPredict: "Ramalan Rawak Semua",
-                todayKickoffs: "Sepak Mula Pilihan Hari Ini",
-                todayKickoffsDesc: "Perlawanan 11 Jun 2026. Perlawanan yang selesai memaparkan keputusan rasmi, manakala perlawanan akan datang sedia diramal!",
+                todayKickoffs: "Sepak Mula Hari Ini & Akan Datang",
+                todayKickoffsDesc: "Pilih jadual perlawanan hari ini. Kunci ramalan di bawah untuk mengira kedudukan kumpulan anda secara langsung!",
+                yesterdayRecap: "Keputusan Rasmi Semalam",
+                yesterdayRecapDesc: "Keputusan rasmi perlawanan hari pembukaan. Ramalan telah ditutup bagi jadual ini.",
                 autoFill: "Isi Automatik",
                 clearPrediction: "Kosongkan Ramalan",
                 groupStandingsImpact: "Kesan Kedudukan KUMPULAN {group}",
@@ -433,7 +448,7 @@
                 portalTitle: "PORTAL JUARA • PIALA DUNIA FIFA 2026™",
                 portalDesc: "Direka untuk prestasi tinggi. Sedia dihoskan di Github Pages tanpa pangkalan data luaran.",
                 statusOperational: "Beroperasi Sepenuhnya",
-                kickoffDay: "Hari Sepak Mula 11 Jun 2026",
+                kickoffDay: "Portal Hari Perlawanan",
                 systemTime: "Masa Sistem",
                 timeZone: "Zon Masa",
                 theme: "Tema",
@@ -450,7 +465,7 @@
                 }
             },
             zh: {
-                liveMode: "实时赛事模式已激活 • 揭幕战首场比赛已正式结束！",
+                liveMode: "实时赛事模式已激活 • 完赛比分已自动合并统计",
                 nextGenPortal: "次世代球迷门户",
                 kickoffCenter: "开球中心",
                 matchExplorer: "赛程探索",
@@ -463,8 +478,10 @@
                 heroDesc: "欢迎使用最智能的 48 支球队 2026 年国际足联世界杯™ 互动模拟器。预测比分、探索承办球场并定制您的全息粉丝票卡。",
                 openPredictor: "打开预测赛程表",
                 chaosPredict: "混沌一键预测",
-                todayKickoffs: "今日焦点大战",
-                todayKickoffsDesc: "2026年6月11日赛事。已结束的比赛直接显示官方比分，未赛比赛可以输入预测！",
+                todayKickoffs: "今日及即将开球大战",
+                todayKickoffsDesc: "选择今日进行的比分。在此输入比分预测以自动重排最新小组排名！",
+                yesterdayRecap: "昨日官方比分战报",
+                yesterdayRecapDesc: "揭幕战官方核定成绩。已完赛场次不允许再提交修改预测。",
                 autoFill: "自动填充",
                 clearPrediction: "重置预测",
                 groupStandingsImpact: "小组 {group} 积分榜影响",
@@ -516,7 +533,7 @@
                 portalTitle: "冠军门户 • 2026年国际足联世界杯™",
                 portalDesc: "极速响应架构，无需后端数据库，支持 GitHub Pages 一键部署。",
                 statusOperational: "系统运行正常",
-                kickoffDay: "2026年6月11日 揭幕日",
+                kickoffDay: "世界杯每日赛程大厅",
                 systemTime: "系统时间",
                 timeZone: "时区",
                 theme: "主题风格",
@@ -533,7 +550,7 @@
                 }
             },
             ja: {
-                liveMode: "ライブトーナメントモード起動中 • 開幕第1試合が公式に終了しました！",
+                liveMode: "ライブトーナメントモード起動中 • 終了した試合結果は自動計算されます",
                 nextGenPortal: "次世代ファンポータル",
                 kickoffCenter: "キックオフセンター",
                 matchExplorer: "マッチエクスプローラー",
@@ -546,8 +563,10 @@
                 heroDesc: "48チームが激突するFIFAワールドカップ2026™の最もスマートな双方向シミュレーターへようこそ。試合展開を予測し、スタジアムを巡り、全息チケットをカスタマイズしましょう。",
                 openPredictor: "シミュレーターを開く",
                 chaosPredict: "ランダム全予測",
-                todayKickoffs: "本日の注目マッチ",
-                todayKickoffsDesc: "2026年6月11日試合。終了した試合は公式結果を表示し、未試合のものは予測を入力できます！",
+                todayKickoffs: "本日および今後の試合",
+                todayKickoffsDesc: "本日の予定対戦表。予測を入力するだけで最新グループ順位が自動計算されます！",
+                yesterdayRecap: "昨日の公式試合結果",
+                yesterdayRecapDesc: "開幕日の公式確定スコアです。これら対戦の予測変更はクローズされています。",
                 autoFill: "自動入力",
                 clearPrediction: "予測をクリア",
                 groupStandingsImpact: "グループ {group} への影響",
@@ -599,7 +618,7 @@
                 portalTitle: "チャンピオンポータル • FIFAワールドカップ2026™",
                 portalDesc: "高性能、データベース不要。GitHub Pagesで即座にホスト可能なアーキテクチャ。",
                 statusOperational: "正常稼働中",
-                kickoffDay: "2026年6月11日 開幕日",
+                kickoffDay: "マッチデイ・タイムライン",
                 systemTime: "システム時間",
                 timeZone: "タイムゾーン",
                 theme: "テーマ",
@@ -616,7 +635,7 @@
                 }
             },
             es: {
-                liveMode: "¡MODO TORNEO EN VIVO ACTIVADO • EL PRIMER PARTIDO OFICIAL HA FINALIZADO!",
+                liveMode: "MODO DE TORNEO EN VIVO ACTIVADO • RESULTADOS OFICIALES CALCULADOS AUTOMÁTICAMENTE",
                 nextGenPortal: "Portal de Fanáticos de Próxima Generación",
                 kickoffCenter: "Centro de Inicio",
                 matchExplorer: "Explorador de Partidos",
@@ -629,8 +648,10 @@
                 heroDesc: "Bienvenido al simulador interactivo más inteligente para la Copa Mundial de la FIFA 2026™ de 48 equipos. Predice goles, explora estadios y personaliza tu boleto holográfico.",
                 openPredictor: "Abrir Calendario Predictor",
                 chaosPredict: "Predicción Caótica Total",
-                todayKickoffs: "Partidos Destacados de Hoy",
-                todayKickoffsDesc: "Partidos del 11 de junio de 2026. ¡Los partidos finalizados muestran el marcador oficial, mientras que los futuros permiten predicciones!",
+                todayKickoffs: "Próximos Partidos de Hoy",
+                todayKickoffsDesc: "Partidos programados para hoy. ¡Modifica los pronósticos de abajo para reorganizar las clasificaciones en tiempo real!",
+                yesterdayRecap: "Resultados Oficiales de Ayer",
+                yesterdayRecapDesc: "Marcadores confirmados de la jornada inaugural. Las predicciones para estos encuentros están cerradas.",
                 autoFill: "Auto-Completar",
                 clearPrediction: "Limpiar Predicción",
                 groupStandingsImpact: "Impacto en el Grupo {group}",
@@ -682,11 +703,11 @@
                 portalTitle: "PORTAL DE CAMPEONES • COPA MUNDIAL DE LA FIFA 2026™",
                 portalDesc: "Diseñado para alto rendimiento. Listo para GitHub Pages sin base de datos externa.",
                 statusOperational: "Totalmente Operativo",
-                kickoffDay: "11 de Junio, Día de Apertura",
+                kickoffDay: "Portal del Día de Partido",
                 systemTime: "Hora del Sistema",
                 timeZone: "Zona Horaria",
                 theme: "Tema",
-                lockedMatch: "Resultado Oficial del Partido (Bloqueado)",
+                lockedMatch: "Resultado Oficial (Bloqueado)",
                 yourPredictionLabel: "Tu Predicción",
                 notPredicted: "Sin Predecir",
                 officialScorers: "Goleadores Oficiales",
@@ -699,7 +720,7 @@
                 }
             },
             fr: {
-                liveMode: "MODE TOURNOI EN DIRECT ACTIVÉ • LE PREMIER MATCH OFFICIEL EST TERMINÉ !",
+                liveMode: "MODE TOURNOI EN DIRECT ACTIVÉ • LES SCORES OFFICIELS SONT AUTOMATIQUEMENT CALCULÉS",
                 nextGenPortal: "Portail Supporter Nouvelle Génération",
                 kickoffCenter: "Centre Coup d'Envoi",
                 matchExplorer: "Explorateur de Matchs",
@@ -712,8 +733,10 @@
                 heroDesc: "Bienvenue sur le simulateur interactif le plus intelligent pour la Coupe du Monde de la FIFA 2026™ à 48 équipes. Pronostiquez les buts, explorez les stades et personnalisez votre billet virtuel.",
                 openPredictor: "Ouvrir le Pronostiqueur",
                 chaosPredict: "Simulation Aléatoire Totale",
-                todayKickoffs: "Matchs Phares d'Aujourd'hui",
-                todayKickoffsDesc: "Matchs du 11 juin 2026. Les matchs terminés affichent les scores officiels, tandis que les prochains sont ouverts aux pronostics !",
+                todayKickoffs: "Matchs au Programme Aujourd'hui",
+                todayKickoffsDesc: "Matchs prévus aujourd'hui. Entrez vos pronostics ci-dessous pour recalculer le classement du groupe en direct !",
+                yesterdayRecap: "Résultats Officiels d'Hier",
+                yesterdayRecapDesc: "Scores confirmés de la journée d'ouverture. Les pronostics sont clos pour ces rencontres.",
                 autoFill: "Remplissage Auto",
                 clearPrediction: "Effacer les Pronostics",
                 groupStandingsImpact: "Impact Classement GROUPE {group}",
@@ -765,7 +788,7 @@
                 portalTitle: "PORTAIL DES CHAMPIONS • COUPE DU MONDE DE LA FIFA 2026™",
                 portalDesc: "Développé pour de hautes performances. Hébergement idéal sur GitHub Pages sans base de données.",
                 statusOperational: "Parfaitement Opérationnel",
-                kickoffDay: "11 Juin 2026, Jour de Lancement",
+                kickoffDay: "Portail du Jour de Match",
                 systemTime: "Heure Système",
                 timeZone: "Fuseau Horaire",
                 theme: "Thème",
@@ -782,7 +805,7 @@
                 }
             },
             ar: {
-                liveMode: "تم تفعيل وضع البطولة المباشر • انتهت المباراة الافتتاحية رسمياً!",
+                liveMode: "تم تفعيل وضع البطولة المباشر • احتساب تلقائي للنتائج الرسمية المكتملة",
                 nextGenPortal: "بوابة مشجعي الجيل القادم",
                 kickoffCenter: "مركز ركلة البداية",
                 matchExplorer: "مستكشف المباريات",
@@ -795,8 +818,10 @@
                 heroDesc: "مرحبًا بك في المحاكي التفاعلي الأذكى لبطولة كأس العالم 2026™ المكونة من 48 فريقًا. توقع الأهداف واستكشف الملاعب وصمم تذكرتك المجسمة الخاصة.",
                 openPredictor: "افتح جدول التوقعات",
                 chaosPredict: "توقع عشوائي للكل",
-                todayKickoffs: "مباريات اليوم البارزة",
-                todayKickoffsDesc: "مباريات 11 يونيو 2026. المباريات المكتملة تعرض النتائج الرسمية والنهائية، بينما تسمح المباريات القادمة بإدخال توقعاتك!",
+                todayKickoffs: "مباريات اليوم والمباريات القادمة",
+                todayKickoffsDesc: "اختر مباريات اليوم وجدول توقعاتك لترى فوراً تحديث الترتيب المباشر لمجموعتك!",
+                yesterdayRecap: "النتائج الرسمية المعتمدة لليوم الأول",
+                yesterdayRecapDesc: "النتائج الرسمية لمباريات الافتتاح. تم إغلاق باب التوقعات لهذه اللقاءات المكتملة.",
                 autoFill: "ملء تلقائي",
                 clearPrediction: "مسح التوقعات",
                 groupStandingsImpact: "تأثير الترتيب على المجموعة {group}",
@@ -848,7 +873,7 @@
                 portalTitle: "بوابة الأبطال • كأس العالم 2026™",
                 portalDesc: "مصممة للأداء الفائق ومثالية للاستضافة على GitHub Pages دون الحاجة لقواعد بيانات.",
                 statusOperational: "يعمل بكفاءة كاملة",
-                kickoffDay: "11 يونيو 2026 يوم الافتتاح",
+                kickoffDay: "بوابة يوم المباراة",
                 systemTime: "توقيت النظام",
                 timeZone: "المنطقة الزمنية",
                 theme: "النمط",
@@ -877,25 +902,21 @@
             const [ticketTier, setTicketTier] = useState("Holographic");
             const [currentTab, setCurrentTab] = useState("live");
             
-            // Dynamic Light/Dark scheme
             const [theme, setTheme] = useState("dark");
-            // Selected language setting
             const [language, setLanguage] = useState("en");
-            // Dynamic synchronized Clock
-            const [currentTime, setCurrentTime] = useState(new Date());
+            const [currentTime, setCurrentTime] = useState(new Date("2026-06-12T23:04:04")); // Synced exactly to June 12, 2026 system clock
 
-            // Custom Notification Toast card instead of alerts
             const [toast, setToast] = useState({ show: false, title: "", message: "", type: "success" });
 
-            // Ticking Dynamic System Clock
+            // Dynamic clock updating based on simulated offset pacing
             useEffect(() => {
                 const interval = setInterval(() => {
-                    setCurrentTime(new Date());
+                    setCurrentTime(prev => new Date(prev.getTime() + 1000));
                 }, 1000);
                 return () => clearInterval(interval);
             }, []);
 
-            // Handle Light / Dark class assignments with fallback selectors
+            // Fluid layout light/dark background variables matching CSS theme toggles
             useEffect(() => {
                 const htmlEl = document.documentElement;
                 if (theme === "dark") {
@@ -922,7 +943,7 @@
                 showNotificationToast(t.ticketGenerated, messageText, "success");
             };
 
-            // Dynamic System timezone match offset calculation
+            // Dynamic UTC Timezone conversion display
             const formattedTimezone = useMemo(() => {
                 const offsetMinutes = currentTime.getTimezoneOffset();
                 const sign = offsetMinutes <= 0 ? "+" : "-";
@@ -932,7 +953,7 @@
                 return `UTC ${sign}${hours}:${mins}`;
             }, [currentTime]);
 
-            // ISO-standard UTC Timezone conversion engine ensuring correct local offsets
+            // ISO UTC-safe Timezone translation engine
             const getLocalTimeStr = (matchDateStr, matchTimeStr, offsetStr) => {
                 const isoString = `${matchDateStr}T${matchTimeStr}:00${offsetStr}`;
                 try {
@@ -944,6 +965,17 @@
                 }
             };
 
+            const matchdayRecaps = useMemo(() => {
+                // Completed Matches (e.g. Day 1: June 11)
+                return matches.filter(m => m.status === "FT");
+            }, [matches]);
+
+            const activeKickoffs = useMemo(() => {
+                // Live & Upcoming matches from June 12 onwards
+                return matches.filter(m => m.status !== "FT");
+            }, [matches]);
+
+            // Dynamic calculation algorithm for sorting Groups A-L
             const groupStandings = useMemo(() => {
                 const standings = {};
 
@@ -963,7 +995,6 @@
                     const t1 = m.team1;
                     const t2 = m.team2;
                     
-                    // Match scoring configuration - prioritizing official score over user prediction if completed (FT)
                     const isCompleted = m.status === "FT";
                     const s1 = isCompleted ? m.actualScore1 : (m.score1 !== null ? parseInt(m.score1) : null);
                     const s2 = isCompleted ? m.actualScore2 : (m.score2 !== null ? parseInt(m.score2) : null);
@@ -1013,7 +1044,6 @@
             }, [matches]);
 
             const updateScore = (matchId, isTeam1, value) => {
-                // Do not allow updating prediction score if match is completed (FT)
                 const targetMatch = matches.find(m => m.id === matchId);
                 if (targetMatch && targetMatch.status === "FT") {
                     return; 
@@ -1034,18 +1064,17 @@
 
             const runChaosSimulator = () => {
                 setMatches(prev => prev.map(m => {
-                    if (m.status === "FT") return m; // Preserve verified official results
+                    if (m.status === "FT") return m; 
                     const s1 = Math.floor(Math.random() * 4);
                     const s2 = Math.floor(Math.random() * 4);
                     return { ...m, score1: s1, score2: s2 };
                 }));
-                showNotificationToast("🎲 Chaos Simulated!", "Standings across Groups A-L have been recalculated. Matches with official final scores remain preserved.", "success");
+                showNotificationToast("🎲 Chaos Simulated!", "Standings computed. Matches with verified official scores remain preserved.", "success");
             };
 
             const resetSimulation = () => {
-                // Clear user predictions while maintaining the verified official done match values
                 setMatches(INITIAL_MATCHES);
-                showNotificationToast("🔄 Simulation Reset", "All match forecasts cleared. Official matches remain locked.", "info");
+                showNotificationToast("🔄 Simulation Reset", "All custom predictions cleared.", "info");
             };
 
             const filteredMatches = useMemo(() => {
@@ -1068,7 +1097,7 @@
             return (
                 <div dir={language === 'ar' ? 'rtl' : 'ltr'} class={`relative z-10 transition-all ${language === 'ar' ? 'font-arabic' : 'font-sans'} text-slate-800 dark:text-slate-100`}>
                     
-                    {/* Live System Toast Notification */}
+                    {}
                     {toast.show && (
                         <div class="fixed bottom-6 right-6 z-50 glass-panel p-4 rounded-2xl shadow-2xl glow-gold border border-amber-500/30 max-w-sm animate-bounce">
                             <div class="flex items-start gap-3">
@@ -1087,19 +1116,19 @@
                     )}
 
                     {/* Premium Header Utility Bar */}
-                    <div class="bg-gradient-to-r from-red-600 via-yellow-500 to-indigo-600 py-1.5 text-center text-[11px] font-semibold tracking-wider text-white flex flex-wrap items-center justify-center gap-x-6 gap-y-1 px-4">
+                    <div class="bg-gradient-to-r from-emerald-600 via-amber-500 to-indigo-600 py-2 text-center text-[11px] font-semibold tracking-wider text-white flex flex-wrap items-center justify-center gap-x-6 gap-y-1 px-4">
                         <span>⚡ {t.liveMode}</span>
                         <div class="flex items-center space-x-1 font-mono font-bold bg-black/20 px-2.5 py-0.5 rounded-full text-[10px]">
-                            <i class="fa-regular fa-clock mr-1"></i>
+                            <i class="fa-regular fa-clock mr-1 ml-1"></i>
                             <span>{t.yourLocal}: {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })} ({formattedTimezone})</span>
                         </div>
                     </div>
 
-                    {/* Navigation Header */}
+                    {}
                     <header class="sticky top-0 z-40 glass-panel border-b border-slate-200/80 dark:border-white/10 shadow-lg transition-all">
                         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col lg:flex-row items-center justify-between gap-4">
                             
-                            {/* Brand Logo & Meta */}
+                            {/* Brand Logo & Title */}
                             <div class="flex items-center space-x-3 cursor-pointer" onClick={() => setCurrentTab("live")}>
                                 <div class="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center font-display font-bold text-slate-950 shadow-md">
                                     '26
@@ -1118,37 +1147,36 @@
                                     onClick={() => setCurrentTab("live")}
                                     class={`px-3 py-2 rounded-lg font-semibold transition ${currentTab === 'live' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/5'}`}
                                 >
-                                    <i class="fa-solid fa-bolt mr-1.5 text-xs"></i> {t.kickoffCenter}
+                                    <i class="fa-solid fa-bolt mr-1.5 ml-1.5 text-xs"></i> {t.kickoffCenter}
                                 </button>
                                 <button 
                                     onClick={() => setCurrentTab("schedule")}
                                     class={`px-3 py-2 rounded-lg font-semibold transition ${currentTab === 'schedule' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/5'}`}
                                 >
-                                    <i class="fa-solid fa-calendar mr-1.5 text-xs"></i> {t.matchExplorer}
+                                    <i class="fa-solid fa-calendar mr-1.5 ml-1.5 text-xs"></i> {t.matchExplorer}
                                 </button>
                                 <button 
                                     onClick={() => setCurrentTab("groups")}
                                     class={`px-3 py-2 rounded-lg font-semibold transition ${currentTab === 'groups' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/5'}`}
                                 >
-                                    <i class="fa-solid fa-table mr-1.5 text-xs"></i> {t.standingsSim}
+                                    <i class="fa-solid fa-table mr-1.5 ml-1.5 text-xs"></i> {t.standingsSim}
                                 </button>
                                 <button 
                                     onClick={() => setCurrentTab("stadiums")}
                                     class={`px-3 py-2 rounded-lg font-semibold transition ${currentTab === 'stadiums' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/5'}`}
                                 >
-                                    <i class="fa-solid fa-map-pin mr-1.5 text-xs"></i> {t.venues}
+                                    <i class="fa-solid fa-map-pin mr-1.5 ml-1.5 text-xs"></i> {t.venues}
                                 </button>
                                 <button 
                                     onClick={() => setCurrentTab("badgemaker")}
                                     class={`px-3 py-2 rounded-lg font-semibold transition ${currentTab === 'badgemaker' ? 'bg-amber-500 text-slate-950 shadow-md' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/5'}`}
                                 >
-                                    <i class="fa-solid fa-id-card mr-1.5 text-xs"></i> {t.fanBadge}
+                                    <i class="fa-solid fa-id-card mr-1.5 ml-1.5 text-xs"></i> {t.fanBadge}
                                 </button>
                             </nav>
 
-                            {/* Configuration Selectors */}
+                            {/* Theme and Language Selection */}
                             <div class="flex items-center flex-wrap gap-2.5">
-                                {/* Theme Switcher with contrast states matching light/dark classes */}
                                 <button 
                                     onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                                     class="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-white/10 text-slate-800 dark:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition flex items-center justify-center text-sm shadow-sm"
@@ -1157,7 +1185,6 @@
                                     {theme === "dark" ? <i class="fa-solid fa-sun"></i> : <i class="fa-solid fa-moon"></i>}
                                 </button>
 
-                                {/* Language Selector */}
                                 <div class="relative">
                                     <select 
                                         value={language}
@@ -1183,7 +1210,7 @@
                         {/* Tab Content: Live Center */}
                         {currentTab === "live" && (
                             <div>
-                                {/* Hero Headline section */}
+                                {}
                                 <section class="text-center py-16 px-6 rounded-3xl bg-slate-100/50 dark:bg-slate-900/40 border border-slate-200 dark:border-white/10 shadow-xl relative overflow-hidden mb-12">
                                     <div class="glow-blob absolute -top-10 -left-10 w-40 h-40 bg-pink-500/10 rounded-full blur-2xl"></div>
                                     <div class="glow-blob absolute -bottom-10 -right-10 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl"></div>
@@ -1206,7 +1233,6 @@
                                         {t.heroDesc}
                                     </p>
 
-                                    {/* Action Buttons */}
                                     <div class="flex flex-wrap items-center justify-center gap-4">
                                         <button 
                                             onClick={() => setCurrentTab("schedule")}
@@ -1223,12 +1249,12 @@
                                     </div>
                                 </section>
 
-                                {/* Today's Live Matches Tracker section */}
+                                {}
                                 <section class="mb-12">
                                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
                                         <div>
                                             <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white flex items-center">
-                                                <span class="w-2.5 h-6 bg-amber-500 rounded-full mr-3 ml-3 block"></span>
+                                                <span class="w-2.5 h-6 bg-cyan-500 rounded-full mr-3 ml-3 block"></span>
                                                 {t.todayKickoffs}
                                             </h3>
                                             <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-mono font-semibold">{t.todayKickoffsDesc}</p>
@@ -1250,23 +1276,20 @@
                                     </div>
 
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        {matches.slice(0, 2).map((match) => {
+                                        {activeKickoffs.slice(0, 2).map((match) => {
                                             const team1 = TEAM_INFO[match.team1];
                                             const team2 = TEAM_INFO[match.team2];
-                                            const isFT = match.status === "FT";
                                             return (
-                                                <div key={match.id} class={`relative overflow-hidden rounded-2xl glass-panel border p-6 shadow-md transition-all ${isFT ? 'border-emerald-500/40 bg-emerald-500/[0.02] dark:bg-emerald-500/[0.01]' : 'border-slate-300 dark:border-white/10 hover:border-amber-500/30'}`}>
+                                                <div key={match.id} class="relative overflow-hidden rounded-2xl glass-panel border p-6 shadow-md transition-all border-slate-300 dark:border-white/10 hover:border-amber-500/30">
                                                     
                                                     {/* Top badges bar */}
                                                     <div class="flex justify-between items-start mb-4">
-                                                        <span class="bg-amber-500/10 text-amber-800 dark:text-amber-400 text-[10px] font-mono font-bold px-2 py-0.5 rounded uppercase tracking-widest">
-                                                            {isFT ? "FT • Completed" : "Opening Day"}
+                                                        <span class="bg-cyan-500/10 text-cyan-800 dark:text-cyan-400 text-[10px] font-mono font-bold px-2 py-0.5 rounded uppercase tracking-widest">
+                                                            Group {match.group} • Live / Upcoming
                                                         </span>
-                                                        {isFT && (
-                                                            <span class="bg-emerald-500/20 text-emerald-800 dark:text-emerald-400 text-[9px] font-mono px-2 py-0.5 rounded font-extrabold flex items-center gap-1">
-                                                                <i class="fa-solid fa-circle-check"></i> {t.lockedMatch}
-                                                            </span>
-                                                        )}
+                                                        <span class="bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-slate-300 text-[9px] font-mono px-2 py-0.5 rounded font-extrabold flex items-center gap-1">
+                                                            <i class="fa-solid fa-clock"></i> Matchday 1
+                                                        </span>
                                                     </div>
                                                     
                                                     {/* Arena & Dynamic Offset Conversion */}
@@ -1281,7 +1304,7 @@
                                                         </div>
                                                     </div>
 
-                                                    {/* Competitors Scoreboard layout with actual vs prediction options */}
+                                                    {/* Competitors Scoreboard layout with prediction entry */}
                                                     <div class="flex items-center justify-between gap-4">
                                                         
                                                         {/* Team 1 Panel */}
@@ -1291,37 +1314,27 @@
                                                             <div class="text-[10px] text-slate-600 dark:text-slate-400 uppercase font-mono mt-0.5 font-semibold">Code: {match.team1}</div>
                                                         </div>
 
-                                                        {/* Score Display / Inputs container */}
+                                                        {/* Prediction Score Inputs */}
                                                         <div class="flex flex-col items-center">
-                                                            {isFT ? (
-                                                                /* Displaying Locked Official score matching image_be2ae3.jpg */
-                                                                <div class="flex items-center space-x-3 bg-slate-200 dark:bg-slate-950/80 px-6 py-3 rounded-2xl border border-slate-300 dark:border-white/5 shadow">
-                                                                    <span class="text-3xl font-extrabold font-display text-slate-900 dark:text-white">{match.actualScore1}</span>
-                                                                    <span class="text-slate-500 dark:text-slate-600 font-extrabold text-xl">:</span>
-                                                                    <span class="text-3xl font-extrabold font-display text-slate-900 dark:text-white">{match.actualScore2}</span>
-                                                                </div>
-                                                            ) : (
-                                                                /* Prediction Inputs for active upcoming matches */
-                                                                <div class="flex items-center space-x-2 bg-slate-200 dark:bg-slate-950/80 px-4 py-3 rounded-2xl border border-slate-300 dark:border-white/5 shadow-inner">
-                                                                    <input 
-                                                                        type="number" 
-                                                                        min="0"
-                                                                        placeholder="-" 
-                                                                        value={match.score1 === null ? "" : match.score1}
-                                                                        onChange={(e) => updateScore(match.id, true, e.target.value)}
-                                                                        class="w-12 h-12 text-center text-2xl font-bold font-display bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500"
-                                                                    />
-                                                                    <span class="text-slate-600 dark:text-slate-500 font-bold text-xl">:</span>
-                                                                    <input 
-                                                                        type="number" 
-                                                                        min="0"
-                                                                        placeholder="-" 
-                                                                        value={match.score2 === null ? "" : match.score2}
-                                                                        onChange={(e) => updateScore(match.id, false, e.target.value)}
-                                                                        class="w-12 h-12 text-center text-2xl font-bold font-display bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500"
-                                                                    />
-                                                                </div>
-                                                            )}
+                                                            <div class="flex items-center space-x-2 bg-slate-200 dark:bg-slate-950/80 px-4 py-3 rounded-2xl border border-slate-300 dark:border-white/5 shadow-inner">
+                                                                <input 
+                                                                    type="number" 
+                                                                    min="0"
+                                                                    placeholder="-" 
+                                                                    value={match.score1 === null ? "" : match.score1}
+                                                                    onChange={(e) => updateScore(match.id, true, e.target.value)}
+                                                                    class="w-12 h-12 text-center text-2xl font-bold font-display bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                                                                />
+                                                                <span class="text-slate-600 dark:text-slate-500 font-bold text-xl">:</span>
+                                                                <input 
+                                                                    type="number" 
+                                                                    min="0"
+                                                                    placeholder="-" 
+                                                                    value={match.score2 === null ? "" : match.score2}
+                                                                    onChange={(e) => updateScore(match.id, false, e.target.value)}
+                                                                    class="w-12 h-12 text-center text-2xl font-bold font-display bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                                                                />
+                                                            </div>
                                                         </div>
 
                                                         {/* Team 2 Panel */}
@@ -1333,38 +1346,8 @@
 
                                                     </div>
 
-                                                    {/* Goal Scorers row & User Prediction Comparison side by side */}
-                                                    <div class="mt-4 pt-3 border-t border-slate-200 dark:border-white/5 flex flex-col gap-2 text-xs">
-                                                        {isFT && match.scorers && (
-                                                            <div class="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-sans">
-                                                                <span class="font-bold text-[10px] uppercase text-slate-600 dark:text-slate-400 font-mono tracking-wider">{t.officialScorers}:</span>
-                                                                <span class="text-[11px] font-semibold italic text-emerald-700 dark:text-emerald-400">⚽ {match.scorers}</span>
-                                                            </div>
-                                                        )}
-                                                        
-                                                        {isFT && (
-                                                            <div class="flex items-center justify-between bg-slate-200/50 dark:bg-slate-950/40 p-2 rounded-xl border border-slate-300/60 dark:border-white/5">
-                                                                <span class="text-slate-600 dark:text-slate-400 font-medium font-mono text-[10px] uppercase">{t.yourPredictionLabel}:</span>
-                                                                {match.score1 !== null && match.score2 !== null ? (
-                                                                    <div class="flex items-center gap-1.5 font-bold font-mono text-slate-800 dark:text-slate-200">
-                                                                        <span class="bg-white dark:bg-white/10 px-1.5 py-0.5 rounded">{match.score1}</span>
-                                                                        <span>-</span>
-                                                                        <span class="bg-white dark:bg-white/10 px-1.5 py-0.5 rounded">{match.score2}</span>
-                                                                        {match.score1 === match.actualScore1 && match.score2 === match.actualScore2 ? (
-                                                                            <span class="text-[10px] bg-emerald-500 text-white px-2 py-0.5 rounded-full font-sans uppercase font-bold tracking-wider ml-1">Bullseye!</span>
-                                                                        ) : (
-                                                                            <span class="text-[9px] text-slate-500 font-sans ml-1">(Differs)</span>
-                                                                        )}
-                                                                    </div>
-                                                                ) : (
-                                                                    <span class="text-[10px] text-slate-500 font-semibold italic font-mono">{t.notPredicted}</span>
-                                                                )}
-                                                            </div>
-                                                        )}
-                                                    </div>
-
                                                     {/* Direct Standings Influence indicator */}
-                                                    <div class="mt-4 pt-3 border-t border-slate-200 dark:border-white/5 flex items-center justify-between text-xs text-slate-700 dark:text-slate-400">
+                                                    <div class="mt-6 pt-3 border-t border-slate-200 dark:border-white/5 flex items-center justify-between text-xs text-slate-700 dark:text-slate-400 font-bold">
                                                         <span class="font-mono font-bold">{t.groupStandingsImpact.replace('{group}', match.group)}</span>
                                                         <button 
                                                             onClick={() => { setSelectedGroup(match.group); setCurrentTab("groups"); }}
@@ -1379,7 +1362,104 @@
                                     </div>
                                 </section>
 
-                                {/* Features grid */}
+                                {}
+                                <section class="mb-12">
+                                    <div class="mb-6">
+                                        <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white flex items-center">
+                                            <span class="w-2.5 h-6 bg-emerald-500 rounded-full mr-3 ml-3 block"></span>
+                                            {t.yesterdayRecap}
+                                        </h3>
+                                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-mono font-semibold">{t.yesterdayRecapDesc}</p>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        {matchdayRecaps.map((match) => {
+                                            const team1 = TEAM_INFO[match.team1];
+                                            const team2 = TEAM_INFO[match.team2];
+                                            return (
+                                                <div key={match.id} class="relative overflow-hidden rounded-2xl glass-panel border p-6 shadow-md transition-all border-emerald-500/40 bg-emerald-500/[0.02] dark:bg-emerald-500/[0.01]">
+                                                    {/* Meta Row */}
+                                                    <div class="flex justify-between items-start mb-4">
+                                                        <span class="bg-emerald-500/10 text-emerald-800 dark:text-emerald-400 text-[10px] font-mono font-bold px-2 py-0.5 rounded uppercase tracking-widest">
+                                                            Full Time • Verified Result
+                                                        </span>
+                                                        <span class="bg-emerald-500/20 text-emerald-800 dark:text-emerald-400 text-[9px] font-mono px-2 py-0.5 rounded font-extrabold flex items-center gap-1">
+                                                            <i class="fa-solid fa-circle-check"></i> {t.lockedMatch}
+                                                        </span>
+                                                    </div>
+
+                                                    {/* Arena metadata */}
+                                                    <div class="text-xs text-slate-700 dark:text-slate-400 mb-4 flex flex-col gap-1">
+                                                        <div class="flex items-center space-x-2">
+                                                            <i class="fa-solid fa-map-location-dot text-amber-500"></i>
+                                                            <span class="truncate font-semibold text-slate-900 dark:text-slate-300">{match.venue}</span>
+                                                        </div>
+                                                        <div class="flex flex-wrap items-center gap-3 font-mono text-[10px] mt-1">
+                                                            <span class="bg-slate-200 dark:bg-white/5 px-2 py-0.5 rounded text-slate-800 dark:text-slate-300 font-bold">{t.venueLocal}: {match.localTime}</span>
+                                                            <span class="bg-emerald-500/10 text-emerald-800 dark:text-emerald-400 px-2 py-0.5 rounded font-extrabold">{t.yourLocal}: {getLocalTimeStr(match.date, match.localTime, match.offset)}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Scoreboard Layout */}
+                                                    <div class="flex items-center justify-between gap-4">
+                                                        {/* Team 1 */}
+                                                        <div class="flex-1 text-center">
+                                                            <div class="text-4xl mb-2 filter drop-shadow-md select-none">{team1.flag}</div>
+                                                            <div class="font-display font-bold text-sm tracking-wide text-slate-900 dark:text-white truncate">{team1.name}</div>
+                                                            <div class="text-[10px] text-slate-600 dark:text-slate-400 uppercase font-mono mt-0.5 font-semibold">Code: {match.team1}</div>
+                                                        </div>
+
+                                                        {/* Dynamic Locked Scoreboard */}
+                                                        <div class="flex flex-col items-center">
+                                                            <div class="flex items-center space-x-3 bg-slate-200 dark:bg-slate-950/80 px-6 py-3 rounded-2xl border border-slate-300 dark:border-white/5 shadow">
+                                                                <span class="text-3xl font-extrabold font-display text-slate-900 dark:text-white">{match.actualScore1}</span>
+                                                                <span class="text-slate-500 dark:text-slate-600 font-extrabold text-xl">:</span>
+                                                                <span class="text-3xl font-extrabold font-display text-slate-900 dark:text-white">{match.actualScore2}</span>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Team 2 */}
+                                                        <div class="flex-1 text-center">
+                                                            <div class="text-4xl mb-2 filter drop-shadow-md select-none">{team2.flag}</div>
+                                                            <div class="font-display font-bold text-sm tracking-wide text-slate-900 dark:text-white truncate">{team2.name}</div>
+                                                            <div class="text-[10px] text-slate-600 dark:text-slate-400 uppercase font-mono mt-0.5 font-semibold">Code: {match.team2}</div>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Scorers Information */}
+                                                    <div class="mt-4 pt-3 border-t border-slate-200 dark:border-white/5 flex flex-col gap-2 text-xs">
+                                                        {match.scorers && (
+                                                            <div class="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-sans">
+                                                                <span class="font-bold text-[10px] uppercase text-slate-600 dark:text-slate-400 font-mono tracking-wider">{t.officialScorers}:</span>
+                                                                <span class="text-[11px] font-semibold italic text-emerald-700 dark:text-emerald-400">⚽ {match.scorers}</span>
+                                                            </div>
+                                                        )}
+                                                        
+                                                        <div class="flex items-center justify-between bg-slate-200/50 dark:bg-slate-950/40 p-2 rounded-xl border border-slate-300/60 dark:border-white/5">
+                                                            <span class="text-slate-600 dark:text-slate-400 font-medium font-mono text-[10px] uppercase">{t.yourPredictionLabel}:</span>
+                                                            {match.score1 !== null && match.score2 !== null ? (
+                                                                <div class="flex items-center gap-1.5 font-bold font-mono text-slate-800 dark:text-slate-200">
+                                                                    <span class="bg-white dark:bg-white/10 px-1.5 py-0.5 rounded">{match.score1}</span>
+                                                                    <span>-</span>
+                                                                    <span class="bg-white dark:bg-white/10 px-1.5 py-0.5 rounded">{match.score2}</span>
+                                                                    {match.score1 === match.actualScore1 && match.score2 === match.actualScore2 ? (
+                                                                        <span class="text-[10px] bg-emerald-500 text-white px-2 py-0.5 rounded-full font-sans uppercase font-bold tracking-wider ml-1">Bullseye!</span>
+                                                                    ) : (
+                                                                        <span class="text-[9px] text-slate-500 font-sans ml-1">(Differs)</span>
+                                                                    )}
+                                                                </div>
+                                                            ) : (
+                                                                <span class="text-[10px] text-slate-500 font-semibold italic font-mono">{t.notPredicted}</span>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </section>
+
+                                {/* Features info cards */}
                                 <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                                     <div class="p-6 rounded-2xl bg-white dark:bg-brand-cardBg border border-slate-200 dark:border-white/5 shadow-md hover:-translate-y-1 transition duration-300">
                                         <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-yellow-600 flex items-center justify-center text-slate-950 mb-4 shadow-sm">
@@ -1423,7 +1503,7 @@
                             </div>
                         )}
 
-                        {/* Tab Content: Match Schedule Explorer */}
+                        {}
                         {currentTab === "schedule" && (
                             <div>
                                 <div class="mb-8 bg-slate-100 dark:bg-slate-900/60 p-6 rounded-2xl border border-slate-300 dark:border-white/5 shadow-sm">
@@ -1448,7 +1528,7 @@
                                         </div>
                                     </div>
 
-                                    {/* Filters Controls with high visual contrast defaults */}
+                                    {/* Filters Controls */}
                                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 pt-6 border-t border-slate-300 dark:border-white/10">
                                         <div>
                                             <label class="block text-[10px] font-mono uppercase tracking-wider text-slate-700 dark:text-slate-400 mb-1.5 font-bold">Filter Group</label>
@@ -1488,7 +1568,7 @@
                                     </div>
                                 </div>
 
-                                {/* Matches List */}
+                                {}
                                 <div class="space-y-4">
                                     {filteredMatches.length === 0 ? (
                                         <div class="text-center py-12 bg-slate-100 dark:bg-slate-900/40 rounded-2xl border border-dashed border-slate-300 dark:border-white/10">
@@ -1506,7 +1586,7 @@
                                                     key={match.id} 
                                                     class={`glass-panel border p-5 rounded-2xl flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 transition-all shadow-sm ${isFT ? 'border-emerald-500/40 bg-emerald-500/[0.01]' : 'border-slate-300 dark:border-white/10 hover:border-amber-500/30'}`}
                                                 >
-                                                    {/* Match meta details */}
+                                                    {/* Match meta */}
                                                     <div class="flex items-center space-x-4 min-w-[200px]">
                                                         <div class="w-10 h-10 bg-slate-200 dark:bg-slate-950 rounded-lg flex flex-col items-center justify-center font-mono text-[10px] border border-slate-300 dark:border-none">
                                                             <span class="text-slate-600 dark:text-slate-400 font-bold">JUN</span>
@@ -1521,18 +1601,18 @@
                                                         </div>
                                                     </div>
 
-                                                    {/* Competitors matching scoreboard */}
+                                                    {/* Scoreboard layout */}
                                                     <div class="flex-1 flex flex-col items-center max-w-xl mx-auto w-full">
                                                         <div class="flex items-center justify-between sm:justify-center sm:space-x-8 w-full">
                                                             
-                                                            {/* Team 1 Panel */}
+                                                            {/* Team 1 flag */}
                                                             <div class="flex items-center space-x-3 w-1/3 justify-end text-right">
                                                                 <span class="font-display font-extrabold text-sm text-slate-900 dark:text-white hidden sm:inline">{team1.name}</span>
                                                                 <span class="font-display font-extrabold text-sm text-slate-900 dark:text-white sm:hidden">{match.team1}</span>
                                                                 <span class="text-2xl select-none">{team1.flag}</span>
                                                             </div>
 
-                                                            {/* Score Panel */}
+                                                            {/* Score inputs/displays */}
                                                             {isFT ? (
                                                                 <div class="flex items-center space-x-3 px-5 py-1.5 bg-slate-200 dark:bg-slate-950/80 rounded-xl border border-slate-300 dark:border-white/5">
                                                                     <span class="text-xl font-extrabold font-display text-slate-900 dark:text-white">{match.actualScore1}</span>
@@ -1561,7 +1641,7 @@
                                                                 </div>
                                                             )}
 
-                                                            {/* Team 2 Panel */}
+                                                            {/* Team 2 flag */}
                                                             <div class="flex items-center space-x-3 w-1/3 justify-start text-left">
                                                                 <span class="text-2xl select-none">{team2.flag}</span>
                                                                 <span class="font-display font-extrabold text-sm text-slate-900 dark:text-white hidden sm:inline">{team2.name}</span>
@@ -1570,7 +1650,7 @@
 
                                                         </div>
 
-                                                        {/* Subtitle displays on locked rows */}
+                                                        {/* Sub-text scorers on completed matches */}
                                                         {isFT && (
                                                             <div class="w-full flex flex-col gap-1 items-center mt-2 font-sans text-[11px]">
                                                                 <span class="text-slate-600 dark:text-slate-400 italic">⚽ {match.scorers}</span>
@@ -1583,7 +1663,7 @@
                                                         )}
                                                     </div>
 
-                                                    {/* Extra detail tag / action */}
+                                                    {/* Localized timezone conversion info */}
                                                     <div class="text-right flex flex-col sm:flex-row items-end sm:items-center justify-end gap-3">
                                                         <div class="flex flex-col text-[10px] font-mono text-slate-700 dark:text-slate-400 text-right">
                                                             <span>{t.venueLocal}: {match.localTime}</span>
@@ -1605,7 +1685,7 @@
                             </div>
                         )}
 
-                        {/* Tab Content: Group Standings Simulator */}
+                        {}
                         {currentTab === "groups" && (
                             <div>
                                 <div class="bg-slate-100 dark:bg-slate-900/60 p-6 rounded-2xl border border-slate-300 dark:border-white/5 mb-8 shadow-sm">
@@ -1630,7 +1710,7 @@
                                         </div>
                                     </div>
 
-                                    {/* Group selection tabs */}
+                                    {/* Selector buttons Group A-L */}
                                     <div class="flex flex-wrap gap-1.5 mt-6">
                                         {["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"].map(g => (
                                             <button
@@ -1644,7 +1724,6 @@
                                     </div>
                                 </div>
 
-                                {/* Active Group Standings View Table */}
                                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                                     <div class="lg:col-span-2 glass-panel p-6 rounded-2xl border border-slate-300 dark:border-white/10 shadow-md relative overflow-hidden">
                                         <div class="glow-blob absolute -top-10 -left-10 w-32 h-32 bg-amber-500/5 rounded-full blur-xl"></div>
@@ -1712,7 +1791,7 @@
                                         </div>
                                     </div>
 
-                                    {/* Side panel with active group matches predictor links */}
+                                    {}
                                     <div class="glass-panel p-6 rounded-2xl border border-slate-300 dark:border-white/10 shadow-md flex flex-col justify-between">
                                         <div>
                                             <h4 class="text-lg font-display font-bold text-slate-900 dark:text-white mb-2">{t.simulateDirectly}</h4>
@@ -1786,7 +1865,6 @@
                                                             return `Group ${g}: Incomplete`;
                                                         }).slice(0, 4).join("\n") + "\n\nSimulated via FIFA World Cup 2026 Hub ⚽";
                                                     
-                                                    // Clipboard legacy fallback block
                                                     const textarea = document.createElement("textarea");
                                                     textarea.value = text;
                                                     document.body.appendChild(textarea);
@@ -1807,7 +1885,7 @@
                             </div>
                         )}
 
-                        {/* Tab Content: Venues Guide */}
+                        {}
                         {currentTab === "stadiums" && (
                             <div>
                                 <div class="bg-slate-100 dark:bg-slate-900/60 p-6 rounded-2xl border border-slate-300 dark:border-white/5 mb-8 shadow-sm">
@@ -1889,10 +1967,9 @@
                             </div>
                         )}
 
-                        {/* Tab Content: Social Ticket Card Badge Maker */}
+                        {}
                         {currentTab === "badgemaker" && (
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                                {/* Left Side: customization controls */}
                                 <div class="glass-panel p-8 rounded-3xl border border-slate-300 dark:border-white/10 shadow-md bg-white dark:bg-brand-cardBg">
                                     <h3 class="text-2xl font-display font-bold text-slate-900 dark:text-white mb-2">{t.socialTicket}</h3>
                                     <p class="text-xs text-slate-700 dark:text-slate-400 mb-6 font-semibold">{t.socialTicketDesc}</p>
@@ -1950,7 +2027,7 @@
                                                         key={tier}
                                                         type="button"
                                                         onClick={() => setTicketTier(tier)}
-                                                        class={`py-2 px-1 rounded-xl text-xs font-extrabold border transition ${ticketTier === tier ? 'bg-amber-500 border-amber-500 text-slate-950 shadow' : 'bg-white dark:bg-slate-950 border-slate-300 dark:border-white/5 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 shadow-sm'}`}
+                                                        class={`py-2 px-1 rounded-xl text-xs font-extrabold border transition ${ticketTier === tier ? 'bg-amber-500 border-amber-500 text-slate-950 shadow animate-pulse' : 'bg-white dark:bg-slate-950 border-slate-300 dark:border-white/5 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 shadow-sm'}`}
                                                     >
                                                         {tier}
                                                     </button>
@@ -1970,7 +2047,7 @@
                                     </div>
                                 </div>
 
-                                {/* Right Side: Visualizing holographic card structure */}
+                                {/* Ticket layout visualization */}
                                 <div class="flex items-center justify-center">
                                     <div class={`relative w-full max-w-md rounded-3xl bg-gradient-to-br ${TEAM_INFO[favoriteTeam].colors} p-1 shadow-2xl overflow-hidden group select-none`}>
                                         
@@ -1988,8 +2065,8 @@
                                                 <div class="text-2xl">{TEAM_INFO[favoriteTeam].flag}</div>
                                             </div>
 
-                                            {/* Main Graphic Section */}
-                                            <div class="my-6 space-y-4 text-left">
+                                            {/* Main Info */}
+                                            <div class="my-6 space-y-4 text-left text-slate-100">
                                                 <div>
                                                     <span class="text-[9px] font-mono uppercase tracking-wider text-slate-400 block">Fan Name</span>
                                                     <span class="text-xl font-display font-extrabold text-white tracking-wide block">{fanName || "Future Legend"}</span>
@@ -2061,12 +2138,12 @@
 
                     </main>
 
-                    {/* Footer */}
+                    {}
                     <footer class="glass-panel border-t border-slate-300 dark:border-white/10 mt-16 py-12 relative overflow-hidden bg-slate-100 dark:bg-brand-cardBg">
                         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
                             
                             <div class="text-center md:text-left">
-                                <h4 class="text-sm font-display font-bold text-slate-950 dark:text-white tracking-wide">
+                                <h4 class="text-sm font-display font-bold text-slate-950 dark:text-white tracking-wide animate-pulse">
                                     {t.portalTitle}
                                 </h4>
                                 <p class="text-xs text-slate-700 dark:text-slate-400 mt-1">
